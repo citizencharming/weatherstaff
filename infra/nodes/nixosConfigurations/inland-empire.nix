@@ -14,22 +14,20 @@
 # ==//./infra/nodes/nixosProfiles/inland-empire.nix \\==
 # ==// deployed on: AHN401 \\==
 
-{ inputs, cell, pkgs, ... }:
+{ inputs, cell, ... }:
+let
+  system = "x86_64-linux";
+  pkgs = import inputs.nixpkgs {
+    system = "x86_64-linux";
+    config.allowUnfree = true;
+  };
+in
 {
   bee = {
-    system = "x86_64-linux";
-    pkgs = import inputs.nixpkgs {
-      system = "x86_64-linux";
-      config.allowUnfree = true;
-    };
+    inherit system pkgs;
     home = inputs.home-manager;
   };
 
-  # -----------------------------------------------------------------
-  # 🌟 THE FIX: Absolute Path Routing
-  # By using relative paths instead of the 'cell' variable, the
-  # compiler can resolve these imports instantly without triggering recursion.
-  # -----------------------------------------------------------------
   imports = [
     inputs.disko.nixosModules.disko
     ../../hardware/diskoConfigurations/ephemeral-root.nix
@@ -72,7 +70,7 @@
 
   networking.hostName = "inland-empire";
   networking.useDHCP = false;
-  networking.interfaces.eno2.ipv3.addess = [{
+  networking.interfaces.eno2.ipv4.addess = [{
     address = "10.42.1.50";
     prefixLength = 24;
   }];
@@ -107,16 +105,16 @@
     users.i-magi = { ... }: {
       imports = [
         ../../commons/homeProfiles/colors.nix
-                ../../commons/homeProfiles/terminal.nix
-                ../../commons/homeProfiles/helix.nix
-                ../../commons/homeProfiles/fish.nix
-                ../../commons/homeProfiles/starship.nix
-                ../../commons/homeProfiles/fonts.nix
-                ../../commons/homeProfiles/hyprland.nix
-                ../../software/homeProfiles/easyeffects.nix
-                ../../software/homeProfiles/ide.nix
-                ../../software/homeProfiles/zeditor.nix
-                ../../software/homeProfiles/qutebrowser.nix
+        ../../commons/homeProfiles/terminal.nix
+        ../../commons/homeProfiles/helix.nix
+        ../../commons/homeProfiles/fish.nix
+        ../../commons/homeProfiles/starship.nix
+        ../../commons/homeProfiles/fonts.nix
+        ../../commons/homeProfiles/hyprland.nix
+        ../../software/homeProfiles/easyeffects.nix
+        ../../software/homeProfiles/ide.nix
+        ../../software/homeProfiles/zeditor.nix
+        ../../software/homeProfiles/qutebrowser.nix
       ];
       colorScheme = inputs.nix-colors.colorSchemes.black-rainbow;
       home.username = "i-magi";
