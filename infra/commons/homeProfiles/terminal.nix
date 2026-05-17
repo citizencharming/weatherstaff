@@ -77,36 +77,36 @@
         "ctrl+shift+j=goto_split:down"
       ];
 
-      xdg.configFile."ghostty/crt-phosphor-bloom.glsl".text = ''
-          void mainImage(out vec4 fragColor, in vec2 fragCoord) {
-              vec2 uv = fragCoord.xy / iResolution.xy;
+      #xdg.configFile."ghostty/crt-phosphor-bloom.glsl".text = ''
+      #    void mainImage(out vec4 fragColor, in vec2 fragCoord) {
+      #        vec2 uv = fragCoord.xy / iResolution.xy;
 
-              // Center coordinates for the curve
-              vec2 crt_uv = uv * 2.0 - 1.0;
+      #        // Center coordinates for the curve
+      #        vec2 crt_uv = uv * 2.0 - 1.0;
 
-              // The Barrel Distortion Algorithm
-              vec2 offset = crt_uv.yx / 5.0;
-              crt_uv = crt_uv + crt_uv * offset * offset;
-              crt_uv = crt_uv * 0.5 + 0.5;
+      #        // The Barrel Distortion Algorithm
+      #        vec2 offset = crt_uv.yx / 5.0;
+      #        crt_uv = crt_uv + crt_uv * offset * offset;
+      #        crt_uv = crt_uv * 0.5 + 0.5;
 
-              // If the distortion pushes the coordinate off-screen, render black void
-              if (crt_uv.x < 0.0 || crt_uv.x > 1.0 || crt_uv.y < 0.0 || crt_uv.y > 1.0) {
-                  fragColor = vec4(0.0, 0.0, 0.0, 1.0);
-                  return;
-              }
+      #        // If the distortion pushes the coordinate off-screen, render black void
+      #        if (crt_uv.x < 0.0 || crt_uv.x > 1.0 || crt_uv.y < 0.0 || crt_uv.y > 1.0) {
+      #            fragColor = vec4(0.0, 0.0, 0.0, 1.0);
+      #            return;
+      #        }
 
-              // Chromatic Aberration (Bleeding the RGB channels slightly apart)
-              float r = texture(iChannel0, crt_uv + vec2(0.001, 0.0)).r;
-              float g = texture(iChannel0, crt_uv).g;
-              float b = texture(iChannel0, crt_uv - vec2(0.001, 0.0)).b;
+      #        // Chromatic Aberration (Bleeding the RGB channels slightly apart)
+      #        float r = texture(iChannel0, crt_uv + vec2(0.001, 0.0)).r;
+      #        float g = texture(iChannel0, crt_uv).g;
+      #        float b = texture(iChannel0, crt_uv - vec2(0.001, 0.0)).b;
 
-              // The Scanline Burn
-              float scanline = sin(uv.y * 800.0) * 0.04;
+      #        // The Scanline Burn
+      #        float scanline = sin(uv.y * 800.0) * 0.04;
 
-              // Synthesize the final pixel
-              fragColor = vec4(r - scanline, g - scanline, b - scanline, 1.0);
-          }
-        '';
+      #        // Synthesize the final pixel
+      #        fragColor = vec4(r - scanline, g - scanline, b - scanline, 1.0);
+      #    }
+      #  '';
     };
   };
 }

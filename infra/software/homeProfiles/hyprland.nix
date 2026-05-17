@@ -25,6 +25,7 @@ in
   wayland.windowManager.hyprland = {
     enable = true;
     xwayland.enable = true; # legacy applications
+    configType = "lua";
 
     settings = {
       monitor = ",preferred,auto,1"; # overriden in host specific settings
@@ -121,7 +122,6 @@ in
     wl-clipboard
     cliphist    # Clipboard
     hyprpaper   # Wallpaper
-    waybar      # Status Bar
   ];
 
   programs.waybar = {
@@ -139,17 +139,41 @@ in
         "hyprland/workspaces" = {
           format = "{name}";
         };
-        "clock" = {
-          format = "{:%H:%M - %b %d}";
+
+        "hyprland/window" = {
+          max-lengtt = 50;
+          format = "[ (title) ]"
         };
+
+        "clock" = {
+          format = "[ {:%H:%M :: &b &d} ]";
+        };
+
         "pulseaudio" = {
-          format = "{volume}% {icon}";
-          format-icons = {
-            default = ["🔈" "🔉" "🔊"];
-          };
+          format = "VOL {volume}%";
+          format-muted - "VOL MUTE";
+        };
+
+        "network" = {
+          format-wifi = "WIFI {essid}";
+          format-ethernet = "ETH {ipaddr}";
+          format-disconnected = "OFFLINE";
+        };
+
+        "custom/nixos-generation" = {
+          exec = "stat -c &Y /run/current-system | awk '{print int((systime() - $1) / 86400) \"d\"}'";
+          interval = 3600;
+          format = "SYS {}";
+        };
+
+        "custom.nixos-updates" = {
+          exec = "nixos-rebuild dry-build 2>&1 | grep -c 'These derivations will be built'";
+          interval = 21600;
+          format = "UPD {}";
         };
       };
     };
+  };
 
     style = ''
       * {

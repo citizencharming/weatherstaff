@@ -48,8 +48,8 @@
   # -----------------------------------------------------------------
   services.mpd = {
     enable = true;
-    musicDirectory = "/home/citizencharming/media/audio";
-    playlistDirectory = "/home/citizencharming/media/audio/.playlists";
+    musicDirectory = "/home/media/audio";
+    playlistDirectory = "/home/media/audio/.playlists";
 
     # Internal PipeWire output channel mapping
     extraConfig = ''

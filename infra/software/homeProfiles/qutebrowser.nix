@@ -2,7 +2,7 @@
 # ==//./infra/software/homeProfiles/browser.nix \\==
 # ==// keyboard-driven gpu-accelerated web engine \\==
 
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 let
   c = config.colorScheme.palette;

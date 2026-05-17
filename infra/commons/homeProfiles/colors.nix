@@ -23,7 +23,7 @@ let
     slug = "black-rainbow";
     name = "Black Rainbow";
     author = "citizen.charming";
-    colors = {
+    palette = {
       base00 = "0d0e15"; base01 = "151722"; base02 = "1a1c29"; base03 = "32354f";
       base04 = "5f628b"; base05 = "ffb83d"; base06 = "c5c5d6"; base07 = "d1d1d1";
       base08 = "ff4a5a"; base09 = "ff8c00"; base0A = "ffd180"; base0B = "00d08a";
@@ -38,7 +38,7 @@ let
     slug = "digital-necromancer";
     name = "Digital Necromancer";
     author = "citizen.charming";
-    colors = {
+    palette = {
       base00 = "121212"; base01 = "1c1c1c"; base02 = "262626"; base03 = "4e4e4e";
       base04 = "949494"; base05 = "e8e8e8"; base06 = "f5f5f5"; base07 = "d1d1d1";
       base08 = "ff2a40"; base09 = "ffb340"; base0A = "d4b04c"; base0B = "00d95a";

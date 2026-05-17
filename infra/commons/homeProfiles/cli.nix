@@ -60,6 +60,7 @@
     chafa            # Image to ASCII
     glow             # Markdown renderer
     rsync
+    btop
   ];
 
   programs.rbw.settings = {

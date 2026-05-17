@@ -21,7 +21,7 @@
     # Documentation
     vhs                   # CLI recording engine
     asciinema             # terminal session recorder
-    asciinema-language    # Compile .cast logs into GIFs
+    #asciinema-language    # Compile .cast logs into GIFs
     termtosvg             # Compiles live terminal into termtosvg
     ttyd                  # Sharing terminal over web sockets
     mermaid-cli           # Text to diagram
@@ -31,7 +31,7 @@
     bash-language-server  # Bash
     taplo                 # TOML (also formatter)
     fish-lsp              # Fish
-    just-LSP              # Justfile
+    #just-LSP              # Justfile
     yaml-language-server  # YAML
     # Linters
     statix                # Nix, security risks and anti-patterns
@@ -49,5 +49,5 @@
 
   home.sessionVariables = {
     VHS_NO_SANDBOX = "false";
-  }
+  };
 }

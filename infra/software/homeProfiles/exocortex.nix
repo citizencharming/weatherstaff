@@ -9,7 +9,6 @@
     obsidian         # 📑 Visual Markdown canvas (will inherit Fira Code)
     anytype          # 🕸️ Local-first, decentralized cryptographic knowledge grid
     pandoc           # ⚗️ Universal document transformer (Markdown to PDF/LaTeX/HTML)
-
   ];
 
   xdg.configFile."obsidian/snippets/nix-colors.css".text = ''

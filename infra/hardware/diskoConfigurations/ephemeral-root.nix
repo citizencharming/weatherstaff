@@ -41,7 +41,6 @@
             # device = "..."; injected in inland-empire.nix)
             content = {
               type = "btrfs";
-              extraArgs = [ "-f" ];
               subvolumes = {
                 "/nix" = {
                   mountpoint = "/nix";
@@ -52,30 +51,31 @@
           };
           # ==//Persistent Crypt \\==
           luks_vault = {
-          size = "100%";
-          type = "luks";
-          name = "crypt";
-          # device = "..."; injected in inland-empire.nix)
-          extraOpenArgs = [ "--allow-discards" ];
-          content = {
-            type = "btrfs";
-            extraArgs = [ "-f" ];
-            subvolumes = {
-              "/root" = {
-                mountpoint = "/";
-                mountOptions = [ "compress-zstd" "noatime" "commit=300" ];
+            size = "100%";
+            name = "crypt";
+            # device = "..."; injected in inland-empire.nix)
+            content = {
+              type = "luks";
+              name = "crypt";
+              settings = {
+                allowDiscards = true;
               };
-              "/persist" = {
-                mountpoint = "/persist";
-                mountOptions = [ "compress-zstd" "noatime" "commit=300" ];
-              };
-              "/home" = {
-                mountpoint = "/home";
-                mountOptions = [ "compress-zstd" "noatime" "commit=300" ];
-              };
-              "/snapshots" = {
-                mountpoint = "/.snapshots";
-                mountOptions = [ "compress-zstd" "noatime" "commit=300" ];
+              content = {
+                type = "btrfs";
+                subvolumes = {
+                  "/root" = {
+                    mountpoint = "/";
+                    mountOptions = [ "compress=zstd" "noatime" "commit=300" ];
+                  };
+                  "/home" = {
+                    mountpoint = "/home";
+                    mountOptions = [ "compress=zstd" "noatime" "commit=300" ];
+                  };
+                  "/snapshots" = {
+                    mountpoint = "/.snapshots";
+                    mountOptions = [ "compress=zstd" "noatime" "commit=300" ];
+                  };
+                };
               };
             };
           };
@@ -83,5 +83,4 @@
       };
     };
   };
-};
 }

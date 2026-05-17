@@ -37,7 +37,7 @@
           };
         };
       };
-      vault = {
+      lore = {
         type = "disk";
         # device = "..."; injected in inland-empire.nix)
         content = {
@@ -47,11 +47,11 @@
           ];
           subvolumes = {
             "/lore" = {
-              mountpoint = "/mnt/vault/lore";
+              mountpoint = "/mnt/lore";
               mountOptions = [ "compress=zstd" "noatime" "commit=300" ];
             };
-            "/borg" = {
-              mountpoint = "/mnt/vault/borg";
+            "/backup" = {
+              mountpoint = "/mnt/borg";
               mountOptions = [ "compress=zstd" "noatime" "commit=300" ];
             };
           };

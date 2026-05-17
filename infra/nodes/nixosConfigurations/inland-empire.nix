@@ -14,34 +14,26 @@
 # ==//./infra/nodes/nixosProfiles/inland-empire.nix \\==
 # ==// deployed on: AHN401 \\==
 
-{ inputs, cell, ... }:
-let
-  system = "x86_64-linux";
-  pkgs = import inputs.nixpkgs {
-    system = "x86_64-linux";
-    config.allowUnfree = true;
-  };
-in
-{
-  bee = {
-    inherit system pkgs;
-    home = inputs.home-manager;
-  };
+{ config, pkgs, lib, inputs, ... }:
 
+{
   imports = [
-    inputs.disko.nixosModules.disko
     ../../hardware/diskoConfigurations/ephemeral-root.nix
     ../../hardware/diskoConfigurations/AHN401.nix
     ../../hardware/nixosProfiles/boot.nix
     ../../hardware/nixosProfiles/zen.nix
     ../../hardware/nixosProfiles/amd.nix
-    ../../hardware/nixosProfiles/nvidia.nix
+    ../../hardware/nixosProfiles/radeon.nix
     ../../commons/nixosProfiles/mycelium.nix
+    ../../software/nixosProfiles/audio.nix
+    ../../software/nixosProfiles/c&c.nix
   ];
+
+  nixpkgs.config.allowUnfree = true;
 
   disko.devices.disk.main.device = "/dev/disk/by-id/ata-M4-CT256M4SSD2_000000001220090A6B7A";
   disko.devices.disk.media.device = "/dev/disk/by-id/ata-WD_Blue_SA510_2.5_2TB_2326ED442012";
-  disko.devices.disk.vault.device = "/dev/disk/by-id/ata-WD_Blue_SA510_2.5_2TB_2325AU454104";
+  disko.devices.disk.lore.device = "/dev/disk/by-id/ata-WD_Blue_SA510_2.5_2TB_2325AU454104";
 
   # ==// Ephemeral Boot \ uses snapshot to reset OS to original state \==
   #boot.initrd.postDeviceCommands = inputs.nixpkgs.lib.mkAfter ''
@@ -70,7 +62,7 @@ in
 
   networking.hostName = "inland-empire";
   networking.useDHCP = false;
-  networking.interfaces.eno2.ipv4.addess = [{
+  networking.interfaces.eno2.ipv4.addresses = [{
     address = "10.42.1.50";
     prefixLength = 24;
   }];
@@ -89,11 +81,21 @@ in
   system.stateVersion = "25.11";
 
   programs.hyprland.enable = true;
+  programs.fish.enable = true;
 
-  users.users.i-magi = {
+  services.openssh = {
+    enable = true;
+    settings = {
+      PasswordAuthentication = true;
+      PermitRootLogin = "yes";
+    };
+  };
+
+  users.users.xix-sun = {
     isNormalUser = true;
     description = "citizen.charming";
     extraGroups = [ "networkmanager" "wheel" "video" "audio" "docker" ];
+    initialPassword = "opensesame";
     shell = pkgs.fish;
   };
 
@@ -102,23 +104,26 @@ in
     useUserPackages = true;
     extraSpecialArgs = { inherit inputs; };
 
-    users.i-magi = { ... }: {
+    users.xix-sun = { ... }: {
       imports = [
-        ../../commons/homeProfiles/colors.nix
-        ../../commons/homeProfiles/terminal.nix
-        ../../commons/homeProfiles/helix.nix
-        ../../commons/homeProfiles/fish.nix
-        ../../commons/homeProfiles/starship.nix
-        ../../commons/homeProfiles/fonts.nix
-        ../../commons/homeProfiles/hyprland.nix
-        ../../software/homeProfiles/easyeffects.nix
-        ../../software/homeProfiles/ide.nix
-        ../../software/homeProfiles/zeditor.nix
-        ../../software/homeProfiles/qutebrowser.nix
-      ];
-      colorScheme = inputs.nix-colors.colorSchemes.black-rainbow;
-      home.username = "i-magi";
-      home.homeDirectory = "/home/i-magi";
+              ../../commons/homeProfiles/cli.nix
+              ../../commons/homeProfiles/colors.nix
+              ../../commons/homeProfiles/terminal.nix
+              ../../commons/homeProfiles/helix.nix
+              ../../commons/homeProfiles/fish.nix
+              ../../commons/homeProfiles/starship.nix
+              ../../commons/homeProfiles/fonts.nix
+              ../../software/homeProfiles/easyeffects.nix
+              ../../software/homeProfiles/exocortex.nix
+              ../../software/homeProfiles/hyprland.nix
+              ../../software/homeProfiles/ide.nix
+              ../../software/homeProfiles/mako.nix
+              ../../software/homeProfiles/media.nix
+              ../../software/homeProfiles/zeditor.nix
+              ../../software/homeProfiles/qutebrowser.nix
+            ];
+      home.username = "xix-sun";
+      home.homeDirectory = "/home/xix-sun";
       home.stateVersion = "25.11";
       programs.home-manager.enable = true;
     };
