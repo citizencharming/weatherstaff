@@ -13,7 +13,7 @@
 #
 # ==//./infra/hardware/nixosProfiles/amd.nix \\==
 # ==// deployed on: inland-empire \\==
-{ config, lib, pkgs, ... }:
+{ lib, pkgs, ... }:
 
 {
   hardware.cpu.amd.updateMicrocode = true; # BLEEDING EDGE

@@ -2,7 +2,7 @@
 # ==//./infra/software/homeProfiles/ide.nix \\==
 # ==// local development environments and global language servers \\==
 
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   programs.direnv = {

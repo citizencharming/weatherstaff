@@ -13,7 +13,7 @@
 #
 # ==//./infra/hardware/nixosProfiles/nvidia.nix \\==
 # ==// deployed on: inland-empire, magic-mirror \\==
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   security.rtkit.enable = true;

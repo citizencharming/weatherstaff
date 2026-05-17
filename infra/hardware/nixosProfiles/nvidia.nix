@@ -13,7 +13,7 @@
 #
 # ==//./infra/hardware/nixosProfiles/nvidia.nix \\==
 # ==// deployed on: inland-empire, magic-mirror \\==
-{ config, pkgs, ... }:
+{ pkgs, config, ... }:
 
 {
   hardware.graphics = {

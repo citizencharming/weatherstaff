@@ -14,42 +14,31 @@
 # ==//./infra/nodes/nixosProfiles/inland-empire.nix \\==
 # ==// deployed on: AHN401 \\==
 
-{ inputs, pkgs, cell }:
+{ inputs, cell, pkgs, ... }:
 {
   bee = {
     system = "x86_64-linux";
-    home = inputs.home-manager;
     pkgs = import inputs.nixpkgs {
       system = "x86_64-linux";
-      config.allowUnfree = true; # NVIDIA
+      config.allowUnfree = true;
     };
+    home = inputs.home-manager;
   };
 
+  # -----------------------------------------------------------------
+  # 🌟 THE FIX: Absolute Path Routing
+  # By using relative paths instead of the 'cell' variable, the
+  # compiler can resolve these imports instantly without triggering recursion.
+  # -----------------------------------------------------------------
   imports = [
-    cell.hardware.diskoConfigurations.ephemeral-root
-    cell.hardware.diskoConfigurations.AHN401
-    cell.hardware.nixosProfiles.boot
-    cell.hardware.nixosProfiles.zen
-    cell.hardware.nixosProfiles.amd
-    cell.hardware.nixosProfiles.nvidia
-    cell.commons.nixosProfiles.mycelium
-    cell.commons.homeProfiles.colors
-    cell.commons.homeProfiles.terminal
-    cell.commons.homeProfiles.helix
-    cell.commons.homeProfiles.fish
-    cell.commons.homeProfiles.starship
-    cell.commons.homeProfiles.fonts
-    cell.commons.homeProfiles.cli
-    cell.commons.homeProfiles.hyprland
-    cell.software.nixosProfiles.audio
-    cell.software.homeProfiles.easyeffects
-    cell.software.homeProfiles.ide
-    cell.software.homeProfiles.zeditor
-    cell.software.homeProfiles.qutebrowser
-    # Placeholder for future Colony/Clan wrapper
-    # cell.software.nixosProfiles.colony
-    # Placeholder for future Canopy (Graphical interface)
-
+    inputs.disko.nixosModules.disko
+    ../../hardware/diskoConfigurations/ephemeral-root.nix
+    ../../hardware/diskoConfigurations/AHN401.nix
+    ../../hardware/nixosProfiles/boot.nix
+    ../../hardware/nixosProfiles/zen.nix
+    ../../hardware/nixosProfiles/amd.nix
+    ../../hardware/nixosProfiles/nvidia.nix
+    ../../commons/nixosProfiles/mycelium.nix
   ];
 
   disko.devices.disk.main.device = "/dev/disk/by-id/ata-M4-CT256M4SSD2_000000001220090A6B7A";
@@ -58,12 +47,12 @@
 
   # ==// Ephemeral Boot \ uses snapshot to reset OS to original state \==
   #boot.initrd.postDeviceCommands = inputs.nixpkgs.lib.mkAfter ''
-    # mkdir -p /mnt
-    # mount -o subvol=/ /dev/mapper/crypt /mnt
-    # btrfs subvolume delete /mnt/root || true
-    # btrfs subvolume create /mnt/root
-    # umount /mnt
-    #  '';
+  #   mkdir -p /mnt
+  #   mount -o subvol=/ /dev/mapper/crypt /mnt
+  #   btrfs subvolume delete /mnt/root || true
+  #   btrfs subvolume create /mnt/root
+  #   umount /mnt
+  #    '';
 
   # ==// Ephemeral Cache \ uses virtual memory over SSD for tmp/cache files \==
   boot.tmp.useTmpfs = true;
@@ -88,7 +77,13 @@
     prefixLength = 24;
   }];
   networking.defaultGateway = "10.42.1.1";
-  networking.nameservers = [ "10.42.1.13" "8.8.8.8" "1.1.1.1" ]
+  networking.nameservers = [ "10.42.1.13" "8.8.8.8" "1.1.1.1" ];
+
+  #clan.core = {
+  #  meta.name = "weatherstaff";
+  #  machineName = "inland-empire";
+  #  networking.targetHost = "root@10.42.1.12";
+  #};
 
   time.timeZone = "America/Chicago";
   i18n.defaultLocale = "en_US.UTF-8";
@@ -111,7 +106,17 @@
 
     users.i-magi = { ... }: {
       imports = [
-        inputs.nix-colors.homeManagerModules.default
+        ../../commons/homeProfiles/colors.nix
+                ../../commons/homeProfiles/terminal.nix
+                ../../commons/homeProfiles/helix.nix
+                ../../commons/homeProfiles/fish.nix
+                ../../commons/homeProfiles/starship.nix
+                ../../commons/homeProfiles/fonts.nix
+                ../../commons/homeProfiles/hyprland.nix
+                ../../software/homeProfiles/easyeffects.nix
+                ../../software/homeProfiles/ide.nix
+                ../../software/homeProfiles/zeditor.nix
+                ../../software/homeProfiles/qutebrowser.nix
       ];
       colorScheme = inputs.nix-colors.colorSchemes.black-rainbow;
       home.username = "i-magi";

@@ -13,21 +13,27 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.std.follows = "std";
     };
-    clan-core = {
-      url = "git+https://git.clan.lol/clan/clan-core";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    #clan-core = {
+    #  url = "git+https://git.clan.lol/clan/clan-core";
+    #  inputs.nixpkgs.follows = "nixpkgs";
+    #};
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    home-manager ={
-      url = "github:nixos/nixpkgs/nixos-unstable";
-      inputs.nixpkgs.follows = "nixpkgs"
-    }
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, std, hive, ... } @ inputs:
+  outputs = {
+    self,
+    std,
+    hive,
+    #clan-core,
+    ... } @ inputs:
+  #let
     std.growOn {
       inherit inputs;
       cellsFrom = ./infra;
@@ -35,11 +41,20 @@
         (functions "nixosProfiles")
         (functions "homeProfiles")
         (functions "diskoConfigurations")
-        (nixosConfigurations "nixosConfigurations")
+        nixosConfigurations
       ];
     }
-
     {
       nixosConfigurations = hive.collect self "nixosConfigurations";
     };
+  #in
+  #hiveGraph // {
+  #  clanInternals = {
+  #    meta = {
+  #      name = "weatherstaff";
+  #      };
+  #    machines."x86_64-linux"."inland-empire" =
+  #      hiveGraph.nixosConfigurations.inland-empire.config.clan.core.clanInternals;
+  #  };
+  #};
 }

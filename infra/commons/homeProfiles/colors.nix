@@ -13,7 +13,7 @@
 #
 # ==//./infra/software/homeProfiles/colors.nix \\==
 
-{ inputs, config, ... }:
+{ inputs, ... }:
 
 let
   # -----------------------------------------------------------------

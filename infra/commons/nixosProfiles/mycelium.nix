@@ -2,7 +2,7 @@
 # ==//./infra/software/nixosProfiles/mycelium.nix \\==
 # ==// end-to-end encrypted kademlia dht overlay network \\==
 
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   services.mycelium = {

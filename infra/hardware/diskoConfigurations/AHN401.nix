@@ -13,7 +13,7 @@
 #
 # ==//./infra/hardware/diskoConfigurations/media-vault.nix \\==
 # ==// deployed on: inland-empire \\==
-{ inputs, cell }:
+{ inputs, cell, ... }:
 {
   disko.devices = {
     disk = {
@@ -54,7 +54,7 @@
               mountpoint = "/mnt/vault/borg";
               mountOptions = [ "compress=zstd" "noatime" "commit=300" ];
             };
-          }
+          };
         };
       };
     };

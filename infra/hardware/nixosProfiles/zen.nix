@@ -14,7 +14,7 @@
 # ==//./infra/hardware/nixosProfiles/zen.nix \\==
 # ==// deployed on: inland-empire, evil-ball \\==
 
-{ config, lib, pkgs, ... }:
+{ lib, pkgs, ... }:
 
 {
   boot.kernelPackages = pkgs.linuxPackages_zen;
@@ -25,12 +25,8 @@
     "net.core.wmem_max" = 16777216;
   };
 
-  boot.loader = {
-      systemd-boot.enable = true;
-      efi.canTouchEfiVariables = true;
-    };
-
   boot.kernelParams = [
     "quiet"
     "loglevel=3"
   ];
+}

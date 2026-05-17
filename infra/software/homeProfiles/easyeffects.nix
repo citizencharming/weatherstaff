@@ -14,7 +14,7 @@
 # ==//./infra/software/homeProfiles/easyeffects.nix \\==
 # ==// deployed on: evil-ball, inland-empire \\==
 
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   services.easyeffects = {

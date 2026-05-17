@@ -2,7 +2,7 @@
 # ==//./infra/software/homeProfiles/zeditor.nix \\==
 # ==// high-velocity graphical editor \\==
 
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   programs.zed-editor = {
