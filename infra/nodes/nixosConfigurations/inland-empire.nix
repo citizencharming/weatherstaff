@@ -99,6 +99,13 @@ c&c
     shell = pkgs.fish;
   };
 
+  nix = {
+    settings = {
+      auto-optimise-store = true;
+      experimental-features = [ "nix-command" "flakes" ];
+    };
+  };
+
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;

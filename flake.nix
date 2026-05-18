@@ -1,9 +1,6 @@
 {
   description = "Project Weatherstaff: A NixOS sovereign deployment. Powered by Clan and Hive.";
 
-  {
-    description = "A Naked Hive Baseline";
-
     inputs = {
         nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
         nix-colors.url = "github:misterio77/nix-colors";

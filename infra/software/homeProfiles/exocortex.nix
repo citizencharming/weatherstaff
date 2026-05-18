@@ -22,3 +22,4 @@
       --interactive-accent: #${config.colorScheme.palette.base0D};
     }
   '';
+}

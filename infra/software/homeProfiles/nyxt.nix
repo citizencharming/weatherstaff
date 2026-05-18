@@ -1,12 +1,13 @@
 # ====/// WEATHERSTAFF \\\ nyxt.nix \\====
 # ==//./infra/software/homeProfiles/nyxt.nix \\==
 
-{ pkgs, ... }:
+{ inputs, pkgs, ... }:
 
 let
   themes = import ./infra/software/homeProfiles/colors.nix { inherit inputs; };
   br = themes.black-rainbow.palette;
   ghost = themes.digital-necromancy.palette;
+in
 
 {
   home.packages = with pkgs; [

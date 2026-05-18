@@ -13,3 +13,4 @@
     defaultTimeout = 5000;
     groupBy = "summary";
   };
+}

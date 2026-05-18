@@ -30,7 +30,7 @@
     enable = true;
     listenPort = 8082;
     settings = {
-      title = "Weatherstaff Command & Control"
+      title = "Weatherstaff Command & Control";
       favicon = "https://raw.githubusercontent.com/walkxcode/dashkboard-icons/main/png/nixos.png";
     };
     services = [

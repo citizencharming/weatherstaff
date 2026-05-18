@@ -40,10 +40,10 @@
                 };
                 "playback.props" = {
                   "media.class" = "Audio/Source";
-                  "node.passive" = truel
+                  "node.passive" = true;
                 };
               };
-            };
+            }
           ];
         };
         "10-clock-optimization" = {

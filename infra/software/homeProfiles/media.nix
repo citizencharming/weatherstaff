@@ -2,7 +2,7 @@
 # ==//./infra/software/homeProfiles/media.nix \\==
 # ==// sensory playback tools and audio visualization configuration \\==
 
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   home.packages = with pkgs; [

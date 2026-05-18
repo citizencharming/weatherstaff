@@ -20,7 +20,7 @@ c = config.colorScheme.palette;
 in
 
 {
-  xdg.configFile."river/init" {
+  xdg.configFile."river/init" = {
     executable = true;
     text = ''
       #!/bin/sh
@@ -38,7 +38,7 @@ in
       riverctl border-color-focused 0x${c.base0A}
       riverctl border-color-urgent 0x${c.base08}
       riverctl border-width 2
-    ''
+    '';
   };
 
   programs.waybar = {
@@ -59,7 +59,7 @@ in
 
         "river/window" = {
           max-length = 50;
-          format = "[ (title) ]"
+          format = "[ (title) ]";
         };
 
         "clock" = {
@@ -68,7 +68,7 @@ in
 
         "pulseaudio" = {
           format = "VOL {volume}%";
-          format-muted - "VOL MUTE";
+          format-muted = "VOL MUTE";
         };
 
         "network" = {
