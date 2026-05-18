@@ -1,4 +1,4 @@
-# ====/// WEATHERSTAFF \\\ inland-empire.nix \\====
+# ====/// WEATHERSTAFF \\\ evil-ball.nix \\====
 #
 #
 #       _
@@ -11,15 +11,14 @@
 #                                      _/
 #
 #
-# ==//./infra/nodes/nixosProfiles/inland-empire.nix \\==
-# ==// deployed on: AHN401 \\==
+# ==//./infra/nodes/nixosProfiles/evil-ball.nix \\==
+# ==// deployed on: ALR401 \\==
 
 { config, pkgs, lib, inputs, ... }:
 
 {
   imports = [
-    ../../hardware/diskoConfigurations/ephemeral-root.nix
-    ../../hardware/diskoConfigurations/AHN401.nix
+ #   ../../hardware/diskoConfigurations/ephemeral-root.nix
     ../../hardware/nixosProfiles/boot.nix
     ../../hardware/nixosProfiles/zen.nix
     ../../hardware/nixosProfiles/amd.nix
@@ -27,13 +26,14 @@
     ../../commons/nixosProfiles/mycelium.nix
     ../../software/nixosProfiles/audio.nix
     ../../software/nixosProfiles/control.nix
+    ../../software/nixosProfiles/river.nix
   ];
-c&c
+
   nixpkgs.config.allowUnfree = true;
 
-  disko.devices.disk.main.device = "/dev/disk/by-id/ata-M4-CT256M4SSD2_000000001220090A6B7A";
-  disko.devices.disk.media.device = "/dev/disk/by-id/ata-WD_Blue_SA510_2.5_2TB_2326ED442012";
-  disko.devices.disk.lore.device = "/dev/disk/by-id/ata-WD_Blue_SA510_2.5_2TB_2325AU454104";
+#  disko.devices.disk.main.device = "/dev/disk/by-id/ata-M4-CT256M4SSD2_000000001220090A6B7A";
+#  disko.devices.disk.media.device = "/dev/disk/by-id/ata-WD_Blue_SA510_2.5_2TB_2326ED442012";
+#  disko.devices.disk.lore.device = "/dev/disk/by-id/ata-WD_Blue_SA510_2.5_2TB_2325AU454104";
 
   # ==// Ephemeral Boot \ uses snapshot to reset OS to original state \==
   #boot.initrd.postDeviceCommands = inputs.nixpkgs.lib.mkAfter ''
@@ -45,14 +45,14 @@ c&c
   #    '';
 
   # ==// Ephemeral Cache \ uses virtual memory over SSD for tmp/cache files \==
-  boot.tmp.useTmpfs = true;
-  boot.tmp.tmpfsSize = "50%";
+#  boot.tmp.useTmpfs = true;
+#  boot.tmp.tmpfsSize = "50%";
 
-  fileSystems."/var/cache" = {
-    device = "none";
-    fsType = "tmpfs";
-    options = [ "size=2G" "mode=755" ];
-  };
+#  fileSystems."/var/cache" = {
+#    device = "none";
+#    fsType = "tmpfs";
+#    options = [ "size=2G" "mode=755" ];
+#  };
 
   # ==// ZRAM Swap \ creates compressed swapfile directly from RAM \==
   zramSwap = {
@@ -60,10 +60,10 @@ c&c
     memoryPercent = 50;
   };
 
-  networking.hostName = "inland-empire";
+  networking.hostName = "evil-ball";
   networking.useDHCP = false;
   networking.interfaces.eno2.ipv4.addresses = [{
-    address = "10.42.1.50";
+    address = "10.42.1.70";
     prefixLength = 24;
   }];
   networking.defaultGateway = "10.42.1.1";
@@ -80,23 +80,30 @@ c&c
 
   system.stateVersion = "26.05";
 
-  programs.hyprland.enable = true;
+  programs.river.enable = true;
   programs.fish.enable = true;
 
   services.openssh = {
     enable = true;
     settings = {
-      PasswordAuthentication = true;
-      PermitRootLogin = "yes";
+      PasswordAuthentication = false;
+      PermitRootLogin = "no";
     };
   };
 
-  users.users.xix-sun = {
+  users.users.i-magi = {
     isNormalUser = true;
-    description = "Xavier Doolittle";
+    description = "citizen.charming";
     extraGroups = [ "networkmanager" "wheel" "video" "audio" "docker" ];
     initialPassword = "opensesame";
     shell = pkgs.fish;
+  };
+
+  nix = {
+    settings = {
+      auto-optimise-store = true;
+      experimental-features = [ "nix-command" "flakes" ];
+    };
   };
 
   home-manager = {
@@ -104,7 +111,7 @@ c&c
     useUserPackages = true;
     extraSpecialArgs = { inherit inputs; };
 
-    users.xix-sun = { ... }: {
+    users.i-magi = { ... }: {
       imports = [
               ../../commons/homeProfiles/cli.nix
               ../../commons/homeProfiles/colors.nix
@@ -115,15 +122,16 @@ c&c
               ../../commons/homeProfiles/fonts.nix
               ../../software/homeProfiles/easyeffects.nix
               ../../software/homeProfiles/exocortex.nix
-              ../../software/homeProfiles/hyprland.nix
-              ../../software/homeProfiles/ide.nix
+              ../../software/homeProfiles/hackerman.nix
+              ../../software/homeProfiles/river-user.nix
+              ../../software/homeProfiles/nyxt.nix
               ../../software/homeProfiles/mako.nix
               ../../software/homeProfiles/media.nix
               ../../software/homeProfiles/zeditor.nix
               ../../software/homeProfiles/qutebrowser.nix
             ];
-      home.username = "xix-sun";
-      home.homeDirectory = "/home/xix-sun";
+      home.username = "i-magi";
+      home.homeDirectory = "/home/i-magi";
       home.stateVersion = "26.05";
       programs.home-manager.enable = true;
     };

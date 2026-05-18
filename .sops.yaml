@@ -1,0 +1,14 @@
+keys:
+  - &user_i_magi age17d65zyq362h60zwkt2zj27awh2r09vrp9u950g4pfwzr2rc7fdxsu7mrye
+  - &user_xix_sun age1cmv0dsm8yekxuvn2xagsnyvgz3jcfxd5vvvur4sda0p953ed9pwq847re4
+  - &host_inland_empire age1r6ktfztj742knn6rjlkvty6uhs8q99fgztcy9yxjhvj2u63535ysx7gvnq
+  - &host_evil_ball age1x39g7dxgr4wrz9m0u233v3ssdjxq4a05t0wrc798mwgrgr3jkagq5hgcc0
+
+creation-rules:
+  - path_regex: secrets/.*\.yaml$
+    key_groups:
+      - age:
+          - *user_i_magi
+          - *user_xix_sun
+          - *host_inland_empire
+          - *host_evil_ball
