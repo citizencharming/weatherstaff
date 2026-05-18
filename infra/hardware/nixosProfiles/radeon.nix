@@ -19,18 +19,9 @@
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
-    extraPackages = with pkgs; [
-      amdvlk
-      lbvdpau-va-gl
-      vaapiVdpau
-    ];
   };
 
   services.xserver.videoDrivers = [ "amdgpu" ];
-
-  hardware.amdgpu = {
-    initrd.enable = true;
-  };
 
   programs.gamemode.enable = true;
 

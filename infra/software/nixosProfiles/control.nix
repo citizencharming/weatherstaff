@@ -9,9 +9,7 @@
     rustnet       # socket monitoring
     nmap          # network cartgography
     termshark     # TUI packet dissection
-    homelabinfo
     netdata
-    homepage
     colmena
     nixos-anywhere
   ];

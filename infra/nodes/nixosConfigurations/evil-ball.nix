@@ -67,6 +67,8 @@
   networking.defaultGateway = "10.42.1.1";
   networking.nameservers = [ "10.42.1.13" "8.8.8.8" "1.1.1.1" ];
 
+  hardware.enableRedistributableFirmware = true;
+
   #clan.core = {
   #  meta.name = "weatherstaff";
   #  machineName = "inland-empire";

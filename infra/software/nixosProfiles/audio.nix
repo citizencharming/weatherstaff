@@ -75,6 +75,5 @@
     pulsemixer # Volume Mixer
     pwvucontrol # Volume Controller
     qpwgraph # Visual Patchbay
-    noise-suppression-for-voice # ML voice processing
   ];
 }
