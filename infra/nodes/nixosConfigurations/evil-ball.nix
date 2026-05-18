@@ -18,7 +18,7 @@
 
 {
   imports = [
- #   ../../hardware/diskoConfigurations/ephemeral-root.nix
+    ../../hardware/diskoConfigurations/ephemeral-root.nix
     ../../hardware/nixosProfiles/boot.nix
     ../../hardware/nixosProfiles/zen.nix
     ../../hardware/nixosProfiles/amd.nix
@@ -31,9 +31,7 @@
 
   nixpkgs.config.allowUnfree = true;
 
-#  disko.devices.disk.main.device = "/dev/disk/by-id/ata-M4-CT256M4SSD2_000000001220090A6B7A";
-#  disko.devices.disk.media.device = "/dev/disk/by-id/ata-WD_Blue_SA510_2.5_2TB_2326ED442012";
-#  disko.devices.disk.lore.device = "/dev/disk/by-id/ata-WD_Blue_SA510_2.5_2TB_2325AU454104";
+  disko.devices.disk.main.device = "/dev/disk/by-id/nvme-UMIS_RPJTJ256MEE1OWX_SS1B60641Z1CH17K029S";
 
   # ==// Ephemeral Boot \ uses snapshot to reset OS to original state \==
   #boot.initrd.postDeviceCommands = inputs.nixpkgs.lib.mkAfter ''
