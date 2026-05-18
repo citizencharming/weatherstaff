@@ -58,6 +58,7 @@
     memoryPercent = 50;
   };
 
+  networking.networkmanager.enable = true;
   networking.hostName = "evil-ball";
   networking.useDHCP = false;
   networking.interfaces.eno2.ipv4.addresses = [{

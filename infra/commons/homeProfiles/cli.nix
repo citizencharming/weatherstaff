@@ -61,6 +61,7 @@
     glow             # Markdown renderer
     rsync
     btop
+    git
   ];
 
   programs.rbw.settings = {
