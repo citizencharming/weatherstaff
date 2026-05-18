@@ -8,6 +8,10 @@
         disko.url = "github:nix-community/disko";
         home-manager.url = "github:nix-community/home-manager";
         sops-nix.url = "github:Mic92/sops-nix";
+        nur = {
+          url = "github:nix-community/NUR";
+          inputs.nixpkgs.follows = "nixpkgs";
+        };
       };
 
     outputs = { self, nixpkgs, flake-parts, ... } @ inputs:
