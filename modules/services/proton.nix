@@ -12,10 +12,7 @@
 #
 # ==//./infra/commons/proton.nix \\==
 #
-
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   environment.systemPackages = with pkgs; [
     proton-vpn-cli
     wireguard-tools

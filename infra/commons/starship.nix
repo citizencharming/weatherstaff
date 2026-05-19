@@ -1,28 +1,25 @@
 # ====/// WEATHERSTAFF \\\ starship.nix \\====
 #
 #
-#       _
-#      - - /, /,               ,  ,,                        ,          /\   /\
-#        )/ )/ )         _    ||  ||                       ||    _    ||   ||
-#        )__)__)  _-_   < \, =||= ||/\\  _-_  ,._-_  _-_, =||=  < \, =||= =||=
-#       ~)__)__) || \\  /-||  ||  || || || \\  ||   ||_.   ||   /-||  ||   ||
-#        )  )  ) ||/   (( ||  ||  || || ||/    ||    ~ ||  ||  (( ||  ||   ||
+#     _
+#    - - /, /,               ,  ,,                        ,          /\   /\
+#      )/ )/ )         _    ||  ||                       ||    _    ||   ||
+#      )__)__)  _-_   < \, =||= ||/\\  _-_  ,._-_  _-_, =||=  < \, =||= =||=
+#     ~)__)__) || \\  /-||  ||  || || || \\  ||   ||_.   ||   /-||  ||   ||
+#      )  )  ) ||/   (( ||  ||  || || ||/    ||    ~ ||  ||  (( ||  ||   ||
 #     /-_/-_/  \\,/   \/\\  \\, \\ |/ \\,/   \\,  ,-_-   \\,  \/\\  \\,  \\,
-#                                      _/
+#                                 _/
 #
+# ==//./infra/commons/starship.nix \\==
 #
-# ==//./infra/software/homeProfiles/starship.nix \\==
-# ==// deployed on: all \\==
-{ config, pkgs, ... }:
-
-{
+{...}: {
   programs.starship = {
     enable = true;
     enableFishIntegration = true;
     settings = {
       format = ''
-$directory$git_branch$git_status$nix_shell$direnv$container
-$character'';
+        $directory$git_branch$git_status$nix_shell$direnv$container
+        $character'';
       # Ridge
       # Locality
       directory = {

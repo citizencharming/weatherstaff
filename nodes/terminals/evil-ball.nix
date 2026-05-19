@@ -11,11 +11,14 @@
 #                                 _/
 #
 # ==//./nodes/terminals/evil-ball.nix \\==
-
-{ self, config, pkgs, lib, inputs, ... }:
-
-let
-  c = { # HACK: NEEDS BETTER SOLUTION FOR CHANGING THEMES
+{
+  self,
+  pkgs,
+  inputs,
+  ...
+}: let
+  c = {
+    # HACK: NEEDS BETTER SOLUTION FOR CHANGING THEMES
     base00 = "0a001f"; # Abyssal Indigo
     base01 = "14003d"; # Plasma Shadow
     base02 = "220066"; # Ultraviolet Iron
@@ -33,20 +36,18 @@ let
     base0E = "ff00aa"; # Psychic Magenta
     base0F = "b3003b"; # Neon Blood
   };
-in
-
-{
+in {
   imports = [
-    (self +  "/infra/hardware/root.nix") # disko
-    (self +  "/infra/hardware/boot.nix") # systemd
-    (self +  "/infra/hardware/zen.nix") # kernel
-    (self +  "/infra/hardware/amd.nix") # cpu
-    (self +  "/infra/hardware/radeon.nix") # GPU
-    (self +  "/infra/hardware/battery.nix")
-    (self +  "/infra/hardware/audio.nix")
-    (self +  "/infra/commons/tailscale.nix") # mesh (IPv4)
-    (self +  "/infra/commons/mycelium.nix") # mesh (IPv6)
-    (self +  "/infra/environment/tuigreet.nix") # greetd login
+    (self + "/infra/hardware/root.nix") # disko
+    (self + "/infra/hardware/boot.nix") # systemd
+    (self + "/infra/hardware/zen.nix") # kernel
+    (self + "/infra/hardware/amd.nix") # cpu
+    (self + "/infra/hardware/radeon.nix") # GPU
+    (self + "/infra/hardware/battery.nix")
+    (self + "/infra/hardware/audio.nix")
+    (self + "/infra/commons/tailscale.nix") # mesh (IPv4)
+    (self + "/infra/commons/mycelium.nix") # mesh (IPv6)
+    (self + "/infra/environment/tuigreet.nix") # greetd login
     (self + "/infra/environment/river.nix")
     (self + "/modules/suites/control.nix") # mission control
     (self + "/modules/services/proton.nix") # VPN
@@ -55,7 +56,7 @@ in
   nixpkgs.config = {
     allowUnfree = true;
     packageOverrides = pkgs: {
-      nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/main.tar.gz") {
+      nur = import (fetchTarball "https://github.com/nix-community/NUR/archive/main.tar.gz") {
         inherit pkgs;
       };
     };
@@ -73,14 +74,14 @@ in
   #    '';
 
   # ==// Ephemeral Cache \ uses virtual memory over SSD for tmp/cache files \==
-#  boot.tmp.useTmpfs = true;
-#  boot.tmp.tmpfsSize = "50%";
+  #  boot.tmp.useTmpfs = true;
+  #  boot.tmp.tmpfsSize = "50%";
 
-#  fileSystems."/var/cache" = {
-#    device = "none";
-#    fsType = "tmpfs";
-#    options = [ "size=2G" "mode=755" ];
-#  };
+  #  fileSystems."/var/cache" = {
+  #    device = "none";
+  #    fsType = "tmpfs";
+  #    options = [ "size=2G" "mode=755" ];
+  #  };
 
   # ==// ZRAM Swap \ creates compressed swapfile directly from RAM \==
   zramSwap = {
@@ -91,12 +92,14 @@ in
   networking.networkmanager.enable = true;
   networking.hostName = "evil-ball";
   networking.useDHCP = false;
-  networking.interfaces.eno2.ipv4.addresses = [{
-    address = "10.42.1.70";
-    prefixLength = 24;
-  }];
+  networking.interfaces.eno2.ipv4.addresses = [
+    {
+      address = "10.42.1.70";
+      prefixLength = 24;
+    }
+  ];
   networking.defaultGateway = "10.42.1.1";
-  networking.nameservers = [ "10.42.1.13" "8.8.8.8" "1.1.1.1" ];
+  networking.nameservers = ["10.42.1.13" "8.8.8.8" "1.1.1.1"];
 
   hardware.enableRedistributableFirmware = true;
 
@@ -125,7 +128,7 @@ in
   users.users.i-magi = {
     isNormalUser = true;
     description = "citizen.charming";
-    extraGroups = [ "networkmanager" "wheel" "video" "audio" "docker" ];
+    extraGroups = ["networkmanager" "wheel" "video" "audio" "docker"];
     initialPassword = "opensesame";
     shell = pkgs.fish;
   };
@@ -133,16 +136,16 @@ in
   nix = {
     settings = {
       auto-optimise-store = true;
-      experimental-features = [ "nix-command" "flakes" ];
+      experimental-features = ["nix-command" "flakes"];
     };
   };
 
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
-    extraSpecialArgs = { inherit inputs; };
+    extraSpecialArgs = {inherit inputs;};
 
-    users.i-magi = { ... }: {
+    users.i-magi = {...}: {
       imports = [
         (self + "/infra/commons/colors.nix")
         (self + "/infra/commons/fonts.nix")
@@ -208,7 +211,7 @@ in
 
       system.activationScripts.riverInitPermission = ''
         chmod +x /etc/river/init
-      ''
+      '';
 
       programs.fastfetch = {
         enable = true;
@@ -223,101 +226,180 @@ in
               top = 1;
               right = 2;
             };
-          display = {
-            separator = ">>";
-            color = {
-              keys = "yellow"; # Gold Circuitry
-            };
-          };
-          modules = [
-            "break"
-            {
-              type = "title";
+            display = {
+              separator = ">>";
               color = {
-                user = "cyan";
-                at = "red";
-                host = "green";
+                keys = "yellow"; # Gold Circuitry
               };
-            }
-            "break"
-            {
-              type = "custom";
-              format = ">>> [ BONE ] ===============================";
-              formatColor = "green";
-            }
-            { type = "host"; key = "    SYS"; keyColor = "green"; }
-            { type = "cpu"; key = "    CPU"; temp = true; keyColor = "green"; }
-            { type = "gpu"; key = "    GPU"; temp = true; keyColor = "green"; }
-            { type = "memory"; key = "    RAM"; keyColor = "green"; }
-            { type = "swap"; key = "    SWP"; keyColor = "green"; }
-            { type = "disk"; key = "    DSK"; keyColor = "green"; }
-            "break"
-            {
-              type = "custom";
-              format = ">>> [ BLOOD ] ==============================";
-              formatColor = "red";
-            }
-            { type = "os"; key = "    O/S"; keyColor = "red"; }
-            { type = "kernel"; key = "    KRN"; keyColor = "red"; }
-            { type = "packages"; key = "    PKG"; keyColor = "red"; }
-            { type = "wm"; key = "    W/M"; keyColor = "red"; }
-            { type = "display"; key = "   RES"; keyColor = "red"; }
-            { type = "terminal"; key = "   TRM"; keyColor = "red"; }
-            {
-              type = "command";
-              key = "   GEN";
-              keyColor = "red";
-              text = "basename$(readlink /nix/var/nix/profiles/system) | cut -d'-' -f2";
-            }
-            "break"
-            {
-              type = "custom";
-              format = ">>> [ BREATH ] =============================";
-              formatColor = "cyan";
-            }
-            { type = "battery"; key = "   PWR"; keyColor = "cyan"; }
-            { type = "publicip"; key = "    NET"; timeout = 800; keyColor = "cyan"; }
-            { type = "localip"; key = "   LAN"; showMAC = true; keyColor = "cyan"; }
-            {
-              type = "command";
-              key = "   MYC";
-              keyColor = "cyan";
-              text = ''ip=$(ip -6 addr show dev mycelium0 2>/dev/null | awk '/inet6/ {print $2}' | head -n1); [ -z "$ip" ] && echo "Unlinked" || echo "$ip"'';
-            }
-            {
-              type = "command";
-              key = "   TSL";
-              keyColor = "cyan";
-              text = ''ip=$(ip -4 addr show dev tailscale0 2>/dev/null | awk '/inet/ {print $2}' | head -n1); [ -z "$ip" ] && echo "Unlinked" || echo "$ip"'';
-            }
-            {
-              type = "command";
-              key = "   VPN";
-              keyColor = "cyan";
-              text = ''ip=$(ip -4 addr show dev proton 2>/dev/null | awk '/inet/ {print $2}' | head -n1); if [ -z "$ip" ]; then && echo "Unlinked"; else echo "$ip [$(curl -sm 2 ipinfo.io/country 2>/dev/null || echo "UNK")]"; fi'';
-            }
-            { type = "uptime"; key = "    UPT"; }
-            {
-              type = "command";
-              key = "   AGE";
-              keyColor = "cyan";
-              text = "basename$(readlink /nix/var/nix/profiles/system) | cut -d'-' -f2";
-            }
-            { type = "shell"; key = "   SHL"; keyColor = "cyan"; }
-            { type = "datetime"; key = "    CLK"; keyColor = "cyan"; }
-            { type = "locale"; key = "    LOC"; keyColor = "cyan"; }
-            "break"
-            {
-              type = "separator";
-              string = "=";
-              outputColor = "yellow";
-            }
-            "colors"
-            "break"
-          ];
+            };
+            modules = [
+              "break"
+              {
+                type = "title";
+                color = {
+                  user = "cyan";
+                  at = "red";
+                  host = "green";
+                };
+              }
+              "break"
+              {
+                type = "custom";
+                format = ">>> [ BONE ] ===============================";
+                formatColor = "green";
+              }
+              {
+                type = "host";
+                key = "    SYS";
+                keyColor = "green";
+              }
+              {
+                type = "cpu";
+                key = "    CPU";
+                temp = true;
+                keyColor = "green";
+              }
+              {
+                type = "gpu";
+                key = "    GPU";
+                temp = true;
+                keyColor = "green";
+              }
+              {
+                type = "memory";
+                key = "    RAM";
+                keyColor = "green";
+              }
+              {
+                type = "swap";
+                key = "    SWP";
+                keyColor = "green";
+              }
+              {
+                type = "disk";
+                key = "    DSK";
+                keyColor = "green";
+              }
+              "break"
+              {
+                type = "custom";
+                format = ">>> [ BLOOD ] ==============================";
+                formatColor = "red";
+              }
+              {
+                type = "os";
+                key = "    O/S";
+                keyColor = "red";
+              }
+              {
+                type = "kernel";
+                key = "    KRN";
+                keyColor = "red";
+              }
+              {
+                type = "packages";
+                key = "    PKG";
+                keyColor = "red";
+              }
+              {
+                type = "wm";
+                key = "    W/M";
+                keyColor = "red";
+              }
+              {
+                type = "display";
+                key = "   RES";
+                keyColor = "red";
+              }
+              {
+                type = "terminal";
+                key = "   TRM";
+                keyColor = "red";
+              }
+              {
+                type = "command";
+                key = "   GEN";
+                keyColor = "red";
+                text = "basename$(readlink /nix/var/nix/profiles/system) | cut -d'-' -f2";
+              }
+              "break"
+              {
+                type = "custom";
+                format = ">>> [ BREATH ] =============================";
+                formatColor = "cyan";
+              }
+              {
+                type = "battery";
+                key = "   PWR";
+                keyColor = "cyan";
+              }
+              {
+                type = "publicip";
+                key = "    NET";
+                timeout = 800;
+                keyColor = "cyan";
+              }
+              {
+                type = "localip";
+                key = "   LAN";
+                showMAC = true;
+                keyColor = "cyan";
+              }
+              {
+                type = "command";
+                key = "   MYC";
+                keyColor = "cyan";
+                text = ''ip=$(ip -6 addr show dev mycelium0 2>/dev/null | awk '/inet6/ {print $2}' | head -n1); [ -z "$ip" ] && echo "Unlinked" || echo "$ip"'';
+              }
+              {
+                type = "command";
+                key = "   TSL";
+                keyColor = "cyan";
+                text = ''ip=$(ip -4 addr show dev tailscale0 2>/dev/null | awk '/inet/ {print $2}' | head -n1); [ -z "$ip" ] && echo "Unlinked" || echo "$ip"'';
+              }
+              {
+                type = "command";
+                key = "   VPN";
+                keyColor = "cyan";
+                text = ''ip=$(ip -4 addr show dev proton 2>/dev/null | awk '/inet/ {print $2}' | head -n1); if [ -z "$ip" ]; then && echo "Unlinked"; else echo "$ip [$(curl -sm 2 ipinfo.io/country 2>/dev/null || echo "UNK")]"; fi'';
+              }
+              {
+                type = "uptime";
+                key = "    UPT";
+              }
+              {
+                type = "command";
+                key = "   AGE";
+                keyColor = "cyan";
+                text = "basename$(readlink /nix/var/nix/profiles/system) | cut -d'-' -f2";
+              }
+              {
+                type = "shell";
+                key = "   SHL";
+                keyColor = "cyan";
+              }
+              {
+                type = "datetime";
+                key = "    CLK";
+                keyColor = "cyan";
+              }
+              {
+                type = "locale";
+                key = "    LOC";
+                keyColor = "cyan";
+              }
+              "break"
+              {
+                type = "separator";
+                string = "=";
+                outputColor = "yellow";
+              }
+              "colors"
+              "break"
+            ];
+          };
         };
       };
     };
   };
-};
 }

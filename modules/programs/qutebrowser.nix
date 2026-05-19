@@ -1,13 +1,9 @@
 # ====/// WEATHERSTAFF \\\ browser.nix \\====
 # ==//./infra/software/homeProfiles/browser.nix \\==
 # ==// keyboard-driven gpu-accelerated web engine \\==
-
-{ config, pkgs, ... }:
-
-let
+{config, ...}: let
   c = config.colorScheme.palette;
-in
-{
+in {
   programs.qutebrowser = {
     enable = true;
     loadAutoconfig = false;

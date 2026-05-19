@@ -12,14 +12,13 @@
 #
 # ==//./infra/commons/cli.nix \\==
 #
-
-{ config, pkgs, ... }:
-
-let
-  c = config.colorScheme.palette;
-in
-
 {
+  config,
+  pkgs,
+  ...
+}: let
+  c = config.colorScheme.palette;
+in {
   programs.fzf = {
     enable = true;
     enableFishIntegration = true;
@@ -51,10 +50,10 @@ in
 
   programs.yazi = {
     enable = true;
-    enableFishIntegration= true;
+    enableFishIntegration = true;
     settings = {
       manager = {
-        ratio = [ 1 4 3 ];
+        ratio = [1 4 3];
         sort_by = "alphabetical";
         sort_sensitive = false;
         sort_dir_furst = true;
@@ -70,7 +69,7 @@ in
     };
     theme = {
       manager = {
-        cmd = { fg = "#${c.base0C}"; }; # Cyan
+        cmd = {fg = "#${c.base0C}";}; # Cyan
         hovered = {
           fg = "#${c.base00}"; # Indigo
           bg = "#${c.base0E}"; # Magenta
@@ -100,25 +99,33 @@ in
       };
       keymap = {
         manager.prepend_keymap = [
-          { on = [ "Esc" ]; run = "leave"; desc = "Go back to parent"; }
-          { on = [ "e" ]; ru = "open --interactive"; desc = "Open in editor"; }
+          {
+            on = ["Esc"];
+            run = "leave";
+            desc = "Go back to parent";
+          }
+          {
+            on = ["e"];
+            ru = "open --interactive";
+            desc = "Open in editor";
+          }
         ];
       };
     };
   };
 
   home.packages = with pkgs; [
-    ripgrep          # Replaces grep
-    tldr             # Simplified Documentation
-    sops             # Secrets Management
-    rbw              # Bitwarden
-    wayshot          # Screenshot
-    snappy           # Cropper and modifier
-    which            # Locates absolute binary paths within the Nix store
-    man-db           # Local system manual pager
-    texinfo          # GNU info documentation reader
-    less             # Traditional text pager
-    chafa            # Image to ASCII
+    ripgrep # Replaces grep
+    tldr # Simplified Documentation
+    sops # Secrets Management
+    rbw # Bitwarden
+    wayshot # Screenshot
+    snappy # Cropper and modifier
+    which # Locates absolute binary paths within the Nix store
+    man-db # Local system manual pager
+    texinfo # GNU info documentation reader
+    less # Traditional text pager
+    chafa # Image to ASCII
     rsync
     btop
     git

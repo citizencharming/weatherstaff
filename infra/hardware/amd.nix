@@ -12,23 +12,20 @@
 #
 # ==//./infra/hardware/amd.nix \\==
 #
-
-{ lib, pkgs, ... }:
-
-{
+{lib, ...}: {
   hardware.cpu.amd.updateMicrocode = true; # BLEEDING EDGE
 
   boot.initrd.availableKernelModules = [
-    "nvme"   # M.2 SSDs
+    "nvme" # M.2 SSDs
     "xhci_pci" # USB 3.0
-    "ahci"   # SATA drives
+    "ahci" # SATA drives
     "usb_storage"
     "usbhid" # Keyboard/Mouse during early boot
     "sd_mod"
   ];
 
   # ==// Hardware Acceleration for microVMs \\==
-  boot.kernelModules = [ "kvm-amd" ];
+  boot.kernelModules = ["kvm-amd"];
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "schedutil";
 }

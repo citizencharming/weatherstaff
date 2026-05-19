@@ -12,11 +12,7 @@
 #
 # ==//./infra/hardware/zen.nix \\==
 #
-
-
-{ lib, pkgs, ... }:
-
-{
+{pkgs, ...}: {
   boot.kernelPackages = pkgs.linuxPackages_zen;
   boot.kernel.sysctl = {
     "vm.swappiness" = 10; # less aggressive swap, prioritize retention

@@ -12,16 +12,13 @@
 #
 # ==//./infra/hardware/radeon.nix \\==
 #
-
-{ pkgs, config, ... }:
-
-{
+{...}: {
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
   };
 
-  services.xserver.videoDrivers = [ "amdgpu" ];
+  services.xserver.videoDrivers = ["amdgpu"];
 
   programs.gamemode.enable = true;
 

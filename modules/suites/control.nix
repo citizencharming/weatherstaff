@@ -12,16 +12,13 @@
 #
 # ==//./modules/suites/control.nix \\==
 #
-
-{ pkgs, config, ... }:
-
-{
+{pkgs, ...}: {
   environment.systemPackages = with pkgs; [
-    trippy        # ping + tracerout
-    gping         # graphical ping
-    rustnet       # socket monitoring
-    nmap          # network cartgography
-    termshark     # TUI packet dissection
+    trippy # ping + tracerout
+    gping # graphical ping
+    rustnet # socket monitoring
+    nmap # network cartgography
+    termshark # TUI packet dissection
     netdata
     colmena
     nixos-anywhere
@@ -46,9 +43,8 @@
       favicon = "https://raw.githubusercontent.com/walkxcode/dashkboard-icons/main/png/nixos.png";
     };
     services = [
-
     ];
   };
 
-  networking.firewall.allowedTCPPorts = [ 8082 19999 ];
+  networking.firewall.allowedTCPPorts = [8082 19999];
 }

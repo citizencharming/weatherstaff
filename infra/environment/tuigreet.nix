@@ -12,10 +12,7 @@
 #
 # ==//./infra/environment/tuigreet.nix \\==
 #
-
-{ config, pkgs, ... }:
-
-let
+{pkgs, ...}: let
   c = {
     base00 = "0a001f"; # Abyssal Indigo
     base01 = "14003d"; # Plasma Shadow
@@ -34,23 +31,22 @@ let
     base0E = "ff00aa"; # Psychic Magenta
     base0F = "b3003b"; # Neon Blood
   };
-in
-
-{
+in {
   services.greetd = {
     enable = true;
     settings = {
-    default_session = {
-      command = "${pkgs.tuigreet}/bin/tuigreet " +
-                "--time " +
-                "--remember " +
-                "--asterisks " +
-                "--window-padding 2" +
-                "--greeting 'Welcome, my son. Welcome to the machine.' " +
-                "--theme 'border=#${c.base0F};text=#${c.base05};prompt=#${c.base0C};time=#${c.base0A};action=#${c.base06};button=#${c.base0E};container=#${c.base00};input=#${c.base08}' " +
-                "--cmd river";
+      default_session = {
+        command =
+          "${pkgs.tuigreet}/bin/tuigreet "
+          + "--time "
+          + "--remember "
+          + "--asterisks "
+          + "--window-padding 2"
+          + "--greeting 'Welcome, my son. Welcome to the machine.' "
+          + "--theme 'border=#${c.base0F};text=#${c.base05};prompt=#${c.base0C};time=#${c.base0A};action=#${c.base06};button=#${c.base0E};container=#${c.base00};input=#${c.base08}' "
+          + "--cmd river";
       };
-    user = "greeter";
+      user = "greeter";
     };
   };
 }

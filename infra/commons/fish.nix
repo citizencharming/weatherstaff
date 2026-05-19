@@ -1,4 +1,4 @@
-# ====/// WEATHERSTAFF \\\ cli.nix \\====
+# ====/// WEATHERSTAFF \\\ fish.nix \\====
 #
 #
 #     _
@@ -12,10 +12,7 @@
 #
 # ==//./infra/commons/fish.nix \\==
 #
-
-{ config, pkgs, ... }:
-
-{
+{pkgs, ...}: {
   programs.fish = {
     enable = true;
     interactiveShellInit = ''

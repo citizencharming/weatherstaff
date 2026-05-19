@@ -12,16 +12,12 @@
 #
 # ==//./infra/hardware/nvidia.nix \\==
 #
-
-{ pkgs, config, ... }:
-
-{
+{config, ...}: {
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
   };
-amd
-  services.xserver.videoDrivers = [ "nvidia" ];
+  services.xserver.videoDrivers = ["nvidia"];
 
   hardware.nvidia = {
     modesetting.enable = true;

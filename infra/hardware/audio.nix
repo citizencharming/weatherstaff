@@ -12,10 +12,7 @@
 #
 # ==//./infra/hardware/audio.nix \\==
 #
-
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   security.rtkit.enable = true;
 
   services.pipewire = {
@@ -36,7 +33,7 @@
                 "node.description" = "Composited Audio Gateway";
                 "capture.props" = {
                   "media.class" = "Audio/Sink";
-                  "audio.position" = [ "FL" "FR" ];
+                  "audio.position" = ["FL" "FR"];
                 };
                 "playback.props" = {
                   "media.class" = "Audio/Source";
@@ -49,7 +46,7 @@
         "10-clock-optimization" = {
           "context.properties" = {
             "default.clock.rate" = 48000;
-            "default.clock.allowed-rates" = [ 48000 96000 ];
+            "default.clock.allowed-rates" = [48000 96000];
             "default.clock.quantum" = 128;
             "default.clock.min-quantum" = 32;
             "default.clock.max-quantum" = 1024;

@@ -1,18 +1,29 @@
 # ====/// WEATHERSTAFF \\\ nyxt.nix \\====
-# ==//./infra/software/homeProfiles/nyxt.nix \\==
-
-{ inputs, pkgs, ... }:
-
-let
-  themes = import ./infra/software/homeProfiles/colors.nix { inherit inputs; };
+#
+#
+#     _
+#    - - /, /,               ,  ,,                        ,          /\   /\
+#      )/ )/ )         _    ||  ||                       ||    _    ||   ||
+#      )__)__)  _-_   < \, =||= ||/\\  _-_  ,._-_  _-_, =||=  < \, =||= =||=
+#     ~)__)__) || \\  /-||  ||  || || || \\  ||   ||_.   ||   /-||  ||   ||
+#      )  )  ) ||/   (( ||  ||  || || ||/    ||    ~ ||  ||  (( ||  ||   ||
+#     /-_/-_/  \\,/   \/\\  \\, \\ |/ \\,/   \\,  ,-_-   \\,  \/\\  \\,  \\,
+#                                 _/
+#
+# ==//./modules/programs/nyxt.nix \\==
+#
+{
+  inputs,
+  pkgs,
+  ...
+}: let
+  themes = import ./infra/software/homeProfiles/colors.nix {inherit inputs;};
   br = themes.black-rainbow.palette;
   ghost = themes.digital-necromancy.palette;
-in
-
-{
+in {
   home.packages = with pkgs; [
-    nyxt    # Lisp programmable browser
-    xclip   # shim
+    nyxt # Lisp programmable browser
+    xclip # shim
   ];
 
   home.sessionVariables = {

@@ -11,17 +11,14 @@
 #                                 _/
 #
 # ==//./modules/suites/hackerman.nix \\==
-
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   home.packages = with pkgs; [
-    chisel        # TCP/UDP tunneler
-    rathole       # reverse proxy for NAT traversal
-    zrok          # peer-tp-peer sharing
-    feroxbuster   # content discovery tool
-    nuclei        # template-based scanner
-    mitmproxy     # TUI web traffic scanner
-    rustnet       # TUI traffic analysis
+    chisel # TCP/UDP tunneler
+    rathole # reverse proxy for NAT traversal
+    zrok # peer-tp-peer sharing
+    feroxbuster # content discovery tool
+    nuclei # template-based scanner
+    mitmproxy # TUI web traffic scanner
+    rustnet # TUI traffic analysis
   ];
 }

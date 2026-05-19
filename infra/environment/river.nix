@@ -12,10 +12,7 @@
 #
 # ==//./infra/environment/river.nix \\==
 #
-
-{ config, pkgs, lib, inputs, ... }:
-
-let
+{pkgs, ...}: let
   c = {
     base00 = "0a001f"; # Abyssal Indigo
     base01 = "14003d"; # Plasma Shadow
@@ -34,25 +31,21 @@ let
     base0E = "ff00aa"; # Psychic Magenta
     base0F = "b3003b"; # Neon Blood
   };
-  inherit (lib) types;
-  cfg = config.wayland.windowManager.river;
-in
-
-{
+in {
   programs.river = {
     enable = true;
     extraPackages = with pkgs; [
       fuzzel
       wl-clipboard
-      cliphist    # Clipboard
+      cliphist # Clipboard
       swww
       ristate
     ];
   };
 
   xdg.portal = {
-    enable=true;
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    enable = true;
+    extraPortals = [pkgs.xdg-desktop-portal-gtk];
     config.common.default = "gtk";
   };
 }

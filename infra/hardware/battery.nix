@@ -12,10 +12,7 @@
 #
 # ==//./infra/hardware/battery.nix \\==
 #
-
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   services.power-profiles-daemon.enable = false;
 
   services.udev.extraRules = ''SUBSYSTEM=="power_supply", KERNEL=="BAT0", ATTR{charge_control_end_threshold}="80"'';
@@ -43,7 +40,7 @@
   powerManagement.powertop.enable = true;
 
   environment.systemPackages = with pkgs; [
-    powertop    # power monitoring
-    acpi        # cli tool for checking battery
+    powertop # power monitoring
+    acpi # cli tool for checking battery
   ];
 }

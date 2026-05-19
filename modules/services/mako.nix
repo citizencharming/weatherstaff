@@ -11,10 +11,7 @@
 #                                 _/
 #
 # ==//./modules/services/mako.nix \\==
-
-{ pkgs, ... }:
-
-{
+{...}: {
   services.mako = {
     enable = true;
     font = "Fira Code Nerd Font 10";

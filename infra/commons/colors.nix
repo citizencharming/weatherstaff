@@ -12,10 +12,7 @@
 #
 # ==//./infra/commons/colors.nix \\==
 #
-
-{ inputs, ... }:
-
-let
+{inputs, ...}: let
   # =================================================================
   # ===================== // PRISMATIC VOID \\ ======================
   # =================================================================
@@ -42,9 +39,7 @@ let
       base0F = "b3003b"; # Neon Blood
     };
   };
-
-in
-{
+in {
   imports = [
     inputs.nix-colors.homeManagerModules.default
   ];

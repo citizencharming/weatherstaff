@@ -12,14 +12,9 @@
 #
 # ==//./infra/commons/helix.nix \\==
 #
-
-{ config, pkgs, ... }:
-
-let
+{config, ...}: let
   c = config.colorScheme.palette;
-in
-
-{
+in {
   programs.helix = {
     enable = true;
     defaultEditor = true;
@@ -49,24 +44,42 @@ in
 
     themes = {
       dynamic-matrix = {
-        "ui.background" = { bg = "#150d0e"; };
-        "ui.text" = { fg = "#${c.base05}"; };
-        "ui.cursor" = { fg = "#${c.base00}"; bg = "#${c.base05}"; };
-        "ui.cursor.match" = { fg = "#${c.base0A}"; bg = "#${c.base02}"; };
-        "ui.selection" = { bg = "#${c.base03}"; };
+        "ui.background" = {bg = "#150d0e";};
+        "ui.text" = {fg = "#${c.base05}";};
+        "ui.cursor" = {
+          fg = "#${c.base00}";
+          bg = "#${c.base05}";
+        };
+        "ui.cursor.match" = {
+          fg = "#${c.base0A}";
+          bg = "#${c.base02}";
+        };
+        "ui.selection" = {bg = "#${c.base03}";};
 
         # The syntax highlighting matrix
-        "keyword" = { fg = "#${c.base0E}"; };        # Magenta
-        "function" = { fg = "#${c.base0D}"; };       # Blue
-        "string" = { fg = "#${c.base0B}"; };         # Green
-        "variable" = { fg = "#${c.base08}"; };       # Red
-        "constant.numeric" = { fg = "#${c.base09}"; };# Orange
-        "type" = { fg = "#${c.base0A}"; };           # Yellow
-        "comment" = { fg = "#${c.base03}"; modifiers = ["italic"]; }; # Ash
+        "keyword" = {fg = "#${c.base0E}";}; # Magenta
+        "function" = {fg = "#${c.base0D}";}; # Blue
+        "string" = {fg = "#${c.base0B}";}; # Green
+        "variable" = {fg = "#${c.base08}";}; # Red
+        "constant.numeric" = {fg = "#${c.base09}";}; # Orange
+        "type" = {fg = "#${c.base0A}";}; # Yellow
+        "comment" = {
+          fg = "#${c.base03}";
+          modifiers = ["italic"];
+        }; # Ash
 
-        "ui.statusline" = { fg = "#${c.base05}"; bg = "#${c.base01}"; };
-        "ui.statusline.normal" = { fg = "#${c.base00}"; bg = "#${c.base0B}"; }; # Green when safe
-        "ui.statusline.insert" = { fg = "#${c.base00}"; bg = "#${c.base0A}"; }; # Yellow when writing
+        "ui.statusline" = {
+          fg = "#${c.base05}";
+          bg = "#${c.base01}";
+        };
+        "ui.statusline.normal" = {
+          fg = "#${c.base00}";
+          bg = "#${c.base0B}";
+        }; # Green when safe
+        "ui.statusline.insert" = {
+          fg = "#${c.base00}";
+          bg = "#${c.base0A}";
+        }; # Yellow when writing
       };
     };
   };

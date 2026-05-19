@@ -11,14 +11,15 @@
 #                                 _/
 #
 # ==//./modules/suites/exocortex.nix \\==
-
-{ config, pkgs, ... }:
-
 {
+  config,
+  pkgs,
+  ...
+}: {
   home.packages = with pkgs; [
-    obsidian         # 📑 Visual Markdown canvas (will inherit Fira Code)
-    anytype          # 🕸️ Local-first, decentralized cryptographic knowledge grid
-    pandoc           # ⚗️ Universal document transformer (Markdown to PDF/LaTeX/HTML)
+    obsidian # 📑 Visual Markdown canvas (will inherit Fira Code)
+    anytype # 🕸️ Local-first, decentralized cryptographic knowledge grid
+    pandoc # ⚗️ Universal document transformer (Markdown to PDF/LaTeX/HTML)
     glow
   ];
 

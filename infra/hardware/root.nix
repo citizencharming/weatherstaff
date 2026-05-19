@@ -12,9 +12,7 @@
 #
 # ==//./infra/disko/root.nix \\==
 #
-
-{ inputs, lib, cell, ... }:
-{
+{...}: {
   disko.devices = {
     disk.main = {
       type = "disk";
@@ -31,7 +29,7 @@
               type = "filesystem";
               format = "vfat";
               mountpoint = "/boot";
-              mountOptions = [ "umask=0077" ];
+              mountOptions = ["umask=0077"];
             };
           };
           # ==// Nix Store \\==
@@ -44,7 +42,7 @@
               subvolumes = {
                 "/nix" = {
                   mountpoint = "/nix";
-                  mountOptions = [ "compress=zstd" "noatime" "commit=300" ];
+                  mountOptions = ["compress=zstd" "noatime" "commit=300"];
                 };
               };
             };
@@ -65,15 +63,15 @@
                 subvolumes = {
                   "/root" = {
                     mountpoint = "/";
-                    mountOptions = [ "compress=zstd" "noatime" "commit=300" ];
+                    mountOptions = ["compress=zstd" "noatime" "commit=300"];
                   };
                   "/home" = {
                     mountpoint = "/home";
-                    mountOptions = [ "compress=zstd" "noatime" "commit=300" ];
+                    mountOptions = ["compress=zstd" "noatime" "commit=300"];
                   };
                   "/snapshots" = {
                     mountpoint = "/.snapshots";
-                    mountOptions = [ "compress=zstd" "noatime" "commit=300" ];
+                    mountOptions = ["compress=zstd" "noatime" "commit=300"];
                   };
                 };
               };

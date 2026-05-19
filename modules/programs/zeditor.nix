@@ -1,10 +1,18 @@
-# ====/// WEATHERSTAFF \\\ zeditor.nix \\====
-# ==//./infra/software/homeProfiles/zeditor.nix \\==
-# ==// high-velocity graphical editor \\==
-
-{ pkgs, ... }:
-
-{
+# ====/// WEATHERSTAFF \\\ zeditory.nix \\====
+#
+#
+#     _
+#    - - /, /,               ,  ,,                        ,          /\   /\
+#      )/ )/ )         _    ||  ||                       ||    _    ||   ||
+#      )__)__)  _-_   < \, =||= ||/\\  _-_  ,._-_  _-_, =||=  < \, =||= =||=
+#     ~)__)__) || \\  /-||  ||  || || || \\  ||   ||_.   ||   /-||  ||   ||
+#      )  )  ) ||/   (( ||  ||  || || ||/    ||    ~ ||  ||  (( ||  ||   ||
+#     /-_/-_/  \\,/   \/\\  \\, \\ |/ \\,/   \\,  ,-_-   \\,  \/\\  \\,  \\,
+#                                 _/
+#
+# ==//./modules/programs/zeditor.nix \\==
+#
+{...}: {
   programs.zed-editor = {
     enable = true;
     userSettings = {
@@ -13,7 +21,7 @@
         diagnostics = false;
       };
 
-      ui_font_size = 14;
+      ui_font_size = 16;
       ui_font_family = "Iosevka"; # High density for the file tree and UI
 
       buffer_font_size = 14;

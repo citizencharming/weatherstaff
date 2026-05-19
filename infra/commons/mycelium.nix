@@ -1,10 +1,18 @@
 # ====/// WEATHERSTAFF \\\ mycelium.nix \\====
-# ==//./infra/software/nixosProfiles/mycelium.nix \\==
-# ==// end-to-end encrypted kademlia dht overlay network \\==
-
-{ pkgs, ... }:
-
-{
+#
+#
+#     _
+#    - - /, /,               ,  ,,                        ,          /\   /\
+#      )/ )/ )         _    ||  ||                       ||    _    ||   ||
+#      )__)__)  _-_   < \, =||= ||/\\  _-_  ,._-_  _-_, =||=  < \, =||= =||=
+#     ~)__)__) || \\  /-||  ||  || || || \\  ||   ||_.   ||   /-||  ||   ||
+#      )  )  ) ||/   (( ||  ||  || || ||/    ||    ~ ||  ||  (( ||  ||   ||
+#     /-_/-_/  \\,/   \/\\  \\, \\ |/ \\,/   \\,  ,-_-   \\,  \/\\  \\,  \\,
+#                                 _/
+#
+# ==//./infra/commons/mycelium.nix \\==
+#
+{...}: {
   services.mycelium = {
     enable = true;
     openFirewall = true;

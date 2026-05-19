@@ -12,16 +12,16 @@
 #
 # ==//./infra/environment/hyprland.nix \\==
 #
-
-{ config, pkgs, ... }:
-
-let
-  c_void   = "rgba(${config.colorScheme.palette.base00}ff)";
+{
+  config,
+  pkgs,
+  ...
+}: let
+  c_void = "rgba(${config.colorScheme.palette.base00}ff)";
   c_active = "rgba(${config.colorScheme.palette.base0A}ff)";
   c_inactive = "rgba(${config.colorScheme.palette.base03}ff)";
-  c_alert  = "rgba(${config.colorScheme.palette.base08}ff)";
-in
-{
+  c_alert = "rgba(${config.colorScheme.palette.base08}ff)";
+in {
   wayland.windowManager.hyprland = {
     enable = true;
     xwayland.enable = true; # legacy applications
@@ -118,10 +118,10 @@ in
   };
 
   home.packages = with pkgs; [
-    fuzzel      # Application Launcher
+    fuzzel # Application Launcher
     wl-clipboard
-    cliphist    # Clipboard
-    hyprpaper   # Wallpaper
+    cliphist # Clipboard
+    hyprpaper # Wallpaper
   ];
 
   programs.waybar = {
@@ -132,9 +132,9 @@ in
         position = "top";
         height = 30;
 
-        modules-left = [ "hyprland/workspaces" "hyprland/window" ];
-        modules-center = [ "clock" ];
-        modules-right = [ "pulseaudio" "network" "tray" ];
+        modules-left = ["hyprland/workspaces" "hyprland/window"];
+        modules-center = ["clock"];
+        modules-right = ["pulseaudio" "network" "tray"];
 
         "hyprland/workspaces" = {
           format = "{name}";
@@ -142,7 +142,7 @@ in
 
         "hyprland/window" = {
           max-lengtt = 50;
-          format = "[ (title) ]"
+          format = "[ (title) ]";
         };
 
         "clock" = {
@@ -151,7 +151,7 @@ in
 
         "pulseaudio" = {
           format = "VOL {volume}%";
-          format-muted - "VOL MUTE";
+          format-muted = "VOL MUTE";
         };
 
         "network" = {
@@ -175,24 +175,23 @@ in
     };
   };
 
-    style = ''
-      * {
-        font-family: "JetBrains Mono", monospace;
-        font-size: 12px;
-        color: #${config.colorScheme.palette.base05};
-      }
-      window#waybar {
-        background-color: #${config.colorScheme.palette.base00};
-        border-bottom: 2px solid #${config.colorScheme.palette.base0A};
-      }
-      #workspaces button {
-        padding: 0 5px;
-        color: #${config.colorScheme.palette.base05};
-      }
-      #workspaces button.active {
-        color: #${config.colorScheme.palette.base0A};
-        font-weight: bold;
-      }
-    '';
-  };
+  style = ''
+    * {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 12px;
+      color: #${config.colorScheme.palette.base05};
+    }
+    window#waybar {
+      background-color: #${config.colorScheme.palette.base00};
+      border-bottom: 2px solid #${config.colorScheme.palette.base0A};
+    }
+    #workspaces button {
+      padding: 0 5px;
+      color: #${config.colorScheme.palette.base05};
+    }
+    #workspaces button.active {
+      color: #${config.colorScheme.palette.base0A};
+      font-weight: bold;
+    }
+  '';
 }

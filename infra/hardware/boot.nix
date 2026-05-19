@@ -12,13 +12,10 @@
 #
 # ==//./infra/hardware/boot.nix \\==
 #
-
-{ pkgs, ... }:
-
-{
+{...}: {
   boot.loader = {
     efi.canTouchEfiVariables = true;
-      systemd-boot = {
+    systemd-boot = {
       enable = true;
       configurationLimit = 9;
       consoleMode = "max";

@@ -12,10 +12,7 @@
 #
 # ==//./infra/hardware/rocm.nix \\==
 #
-
-{ pkgs, config, ... }:
-
-{
+{pkgs, ...}: {
   hardware.graphics = {
     extraPackages = with pkgs; [
       rocmPackages.clr.icd

@@ -12,15 +12,12 @@
 #
 # ==//./infra/commons/tailscale.nix \\==
 #
-
-{ config, pkgs, ... }:
-
-{
+{pkgs, ...}: {
   services.tailscale.enable = true;
   networking.firewall = {
     checkReversePath = "loose";
-    allowedUDPPorts = [ 41641 ];
+    allowedUDPPorts = [41641];
   };
 
-  environment.systemPackages = [ pkgs.tailscale ];
+  environment.systemPackages = [pkgs.tailscale];
 }

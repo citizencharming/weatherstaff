@@ -12,13 +12,13 @@
 #
 # ==//./infra/environment/river.nix \\==
 #
-{ config, pkgs, ... }:
-
-let
-  c = config.colorScheme.palette;
-in
-
 {
+  config,
+  pkgs,
+  ...
+}: let
+  c = config.colorScheme.palette;
+in {
   programs.swaylock = {
     enable = true;
     package = pkgs.swaylock-effects;
@@ -41,3 +41,4 @@ in
       ring-wrong-color = "${c.base08}"; # Red on failed authentication
     };
   };
+}
