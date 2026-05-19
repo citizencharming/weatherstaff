@@ -19,7 +19,7 @@
     rustnet # socket monitoring
     nmap # network cartgography
     termshark # TUI packet dissection
-    netdata
+    #netdata # NEED TO TEST, BROKEN
     colmena
     nixos-anywhere
     soft-serve

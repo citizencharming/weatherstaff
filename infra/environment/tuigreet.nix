@@ -41,10 +41,10 @@ in {
           + "--time "
           + "--remember "
           + "--asterisks "
-          + "--window-padding 2"
+          + "--window-padding 2 "
           + "--greeting 'Welcome, my son. Welcome to the machine.' "
           + "--theme 'border=#${c.base0F};text=#${c.base05};prompt=#${c.base0C};time=#${c.base0A};action=#${c.base06};button=#${c.base0E};container=#${c.base00};input=#${c.base08}' "
-          + "--cmd river";
+          + "--cmd sway ";
       };
       user = "greeter";
     };

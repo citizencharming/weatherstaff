@@ -17,25 +17,6 @@
   inputs,
   ...
 }: let
-  c = {
-    # HACK: NEEDS BETTER SOLUTION FOR CHANGING THEMES
-    base00 = "0a001f"; # Abyssal Indigo
-    base01 = "14003d"; # Plasma Shadow
-    base02 = "220066"; # Ultraviolet Iron
-    base03 = "7a2900"; # Smoking Copper
-    base04 = "a34700"; # Terminal Burnout
-    base05 = "ff7700"; # Amber Phosphor
-    base06 = "ff9900"; # Sodium Flare
-    base07 = "ffbb00"; # Solar Yellow
-    base08 = "ff0055"; # Laser Red
-    base09 = "0066ff"; # Electric Blue
-    base0A = "ffee00"; # Gold Circuitry
-    base0B = "00ff55"; # Radioactive Green
-    base0C = "00e5ff"; # Cherenkov Cyan
-    base0D = "7700ff"; # Hyper Violet
-    base0E = "ff00aa"; # Psychic Magenta
-    base0F = "b3003b"; # Neon Blood
-  };
 in {
   imports = [
     (self + "/infra/hardware/root.nix") # disko
@@ -48,7 +29,7 @@ in {
     (self + "/infra/commons/tailscale.nix") # mesh (IPv4)
     (self + "/infra/commons/mycelium.nix") # mesh (IPv6)
     (self + "/infra/environment/tuigreet.nix") # greetd login
-    (self + "/infra/environment/river.nix")
+    (self + "/infra/environment/sway.nix")
     (self + "/modules/suites/control.nix") # mission control
     (self + "/modules/services/proton.nix") # VPN
   ];
@@ -114,7 +95,6 @@ in {
 
   system.stateVersion = "26.05";
 
-  programs.river.enable = true;
   programs.fish.enable = true;
 
   services.openssh = {
@@ -168,236 +148,258 @@ in {
       home.stateVersion = "26.05";
       programs.home-manager.enable = true;
 
-      wayland.windowManager.river = {
-        enable = true;
-        settings = {
-          background.color = "0x${c.base00}";
-          border-color-focused = "0x${c.base0D}";
-          border-color-unfocused = "0x${c.base02}";
-          border-width = 2;
-          map = {
-            normal = {
-              "Super Return" = "spawn ghostty";
-              "Super Space" = "spawn fuzzel";
-              "Super N" = "spawn nyxt";
-              "Super J" = "focus-view next";
-              "Super K" = "focus-view previous";
-              "Super Z" = "zoom";
-              "Super 1" = "set-focused-tags 1";
-              "Super 2" = "set-focused-tags 2";
-              "Super 3" = "set-focused-tags 4";
-              "Super 4" = "set-focused-tags 8";
-              "Super 5" = "set-focused-tags 16";
-              "Super+Shift 1" = "set-view-tags 1";
-              "Super+Shift 2" = "set-view-tags 2";
-              "Super+Shift 3" = "set-view-tags 4";
-              "Super+Shift 4" = "set-view-tags 8";
-              "Super+Shift 5" = "set-view-tags 16";
-              "Super Q" = "close";
-              "Super L" = "spawn 'swaylock -f'";
-              "Super+Shift E" = "exit";
-            };
-          };
-        };
-        extraConfig = ''
-          swww-daemon &
-          ristate &
-          riverctl default-layout rivertile &
-          rivertile -view-padding 4 -outer-padding 4 -main-ratio 0.5 &
-          riverctl background-color 0x${c.base00} &
-          rivertctl spawn "waybar" &
-        '';
-      };
-
-      system.activationScripts.riverInitPermission = ''
-        chmod +x /etc/river/init
-      '';
+      # TODO: TINKER WITH RIVER BUILDING OWN WINDOW MANAGER
+      #wayland.windowManager.river = {
+      #  enable = true;
+      #  settings = {
+      #    background.color = "0x${c.base00}";
+      #    border-color-focused = "0x${c.base0D}";
+      #    border-color-unfocused = "0x${c.base02}";
+      #    border-width = 2;
+      #    map = {
+      #      normal = {
+      #        "Super Return" = "spawn ghostty";
+      #        "Super Space" = "spawn fuzzel";
+      #        "Super N" = "spawn nyxt";
+      #        "Super J" = "focus-view next";
+      #        "Super K" = "focus-view previous";
+      #        "Super Z" = "zoom";
+      #        "Super 1" = "set-focused-tags 1";
+      #        "Super 2" = "set-focused-tags 2";
+      #        "Super 3" = "set-focused-tags 4";
+      #        "Super 4" = "set-focused-tags 8";
+      #        "Super 5" = "set-focused-tags 16";
+      #        "Super+Shift 1" = "set-view-tags 1";
+      #        "Super+Shift 2" = "set-view-tags 2";
+      #        "Super+Shift 3" = "set-view-tags 4";
+      #        "Super+Shift 4" = "set-view-tags 8";
+      #        "Super+Shift 5" = "set-view-tags 16";
+      #        "Super Q" = "close";
+      #        "Super L" = "spawn 'swaylock -f'";
+      #        "Super+Shift E" = "exit";
+      #      };
+      #    };
+      #  };
+      #  extraConfig = ''
+      #    swww-daemon &
+      #    ristate &
+      #    riverctl default-layout rivertile &
+      #    rivertile -view-padding 4 -outer-padding 4 -main-ratio 0.5 &
+      #    rivertctl spawn "waybar"
+      #      '';
+      #};
 
       programs.fastfetch = {
         enable = true;
         settings = {
           logo = {
-            source = "nixos";
+            source = "nixos_small";
             color = {
               "1" = "blue"; # Hyper Violet
               "2" = "cyan"; # Cherenkov Cyan
             };
             padding = {
-              top = 1;
-              right = 2;
+              paddingTop = 1;
+              paddingLeft = 2;
+              paddingRight = 2;
             };
-            display = {
-              separator = ">>";
-              color = {
-                keys = "yellow"; # Gold Circuitry
-              };
-            };
-            modules = [
-              "break"
-              {
-                type = "title";
-                color = {
-                  user = "cyan";
-                  at = "red";
-                  host = "green";
-                };
-              }
-              "break"
-              {
-                type = "custom";
-                format = ">>> [ BONE ] ===============================";
-                formatColor = "green";
-              }
-              {
-                type = "host";
-                key = "    SYS";
-                keyColor = "green";
-              }
-              {
-                type = "cpu";
-                key = "    CPU";
-                temp = true;
-                keyColor = "green";
-              }
-              {
-                type = "gpu";
-                key = "    GPU";
-                temp = true;
-                keyColor = "green";
-              }
-              {
-                type = "memory";
-                key = "    RAM";
-                keyColor = "green";
-              }
-              {
-                type = "swap";
-                key = "    SWP";
-                keyColor = "green";
-              }
-              {
-                type = "disk";
-                key = "    DSK";
-                keyColor = "green";
-              }
-              "break"
-              {
-                type = "custom";
-                format = ">>> [ BLOOD ] ==============================";
-                formatColor = "red";
-              }
-              {
-                type = "os";
-                key = "    O/S";
-                keyColor = "red";
-              }
-              {
-                type = "kernel";
-                key = "    KRN";
-                keyColor = "red";
-              }
-              {
-                type = "packages";
-                key = "    PKG";
-                keyColor = "red";
-              }
-              {
-                type = "wm";
-                key = "    W/M";
-                keyColor = "red";
-              }
-              {
-                type = "display";
-                key = "   RES";
-                keyColor = "red";
-              }
-              {
-                type = "terminal";
-                key = "   TRM";
-                keyColor = "red";
-              }
-              {
-                type = "command";
-                key = "   GEN";
-                keyColor = "red";
-                text = "basename$(readlink /nix/var/nix/profiles/system) | cut -d'-' -f2";
-              }
-              "break"
-              {
-                type = "custom";
-                format = ">>> [ BREATH ] =============================";
-                formatColor = "cyan";
-              }
-              {
-                type = "battery";
-                key = "   PWR";
-                keyColor = "cyan";
-              }
-              {
-                type = "publicip";
-                key = "    NET";
-                timeout = 800;
-                keyColor = "cyan";
-              }
-              {
-                type = "localip";
-                key = "   LAN";
-                showMAC = true;
-                keyColor = "cyan";
-              }
-              {
-                type = "command";
-                key = "   MYC";
-                keyColor = "cyan";
-                text = ''ip=$(ip -6 addr show dev mycelium0 2>/dev/null | awk '/inet6/ {print $2}' | head -n1); [ -z "$ip" ] && echo "Unlinked" || echo "$ip"'';
-              }
-              {
-                type = "command";
-                key = "   TSL";
-                keyColor = "cyan";
-                text = ''ip=$(ip -4 addr show dev tailscale0 2>/dev/null | awk '/inet/ {print $2}' | head -n1); [ -z "$ip" ] && echo "Unlinked" || echo "$ip"'';
-              }
-              {
-                type = "command";
-                key = "   VPN";
-                keyColor = "cyan";
-                text = ''ip=$(ip -4 addr show dev proton 2>/dev/null | awk '/inet/ {print $2}' | head -n1); if [ -z "$ip" ]; then && echo "Unlinked"; else echo "$ip [$(curl -sm 2 ipinfo.io/country 2>/dev/null || echo "UNK")]"; fi'';
-              }
-              {
-                type = "uptime";
-                key = "    UPT";
-              }
-              {
-                type = "command";
-                key = "   AGE";
-                keyColor = "cyan";
-                text = "basename$(readlink /nix/var/nix/profiles/system) | cut -d'-' -f2";
-              }
-              {
-                type = "shell";
-                key = "   SHL";
-                keyColor = "cyan";
-              }
-              {
-                type = "datetime";
-                key = "    CLK";
-                keyColor = "cyan";
-              }
-              {
-                type = "locale";
-                key = "    LOC";
-                keyColor = "cyan";
-              }
-              "break"
-              {
-                type = "separator";
-                string = "=";
-                outputColor = "yellow";
-              }
-              "colors"
-              "break"
-            ];
           };
+          display = {
+            separator = " >> ";
+            color = {
+              keys = "yellow"; # Gold Circuitry
+            };
+          };
+          modules = [
+            "break"
+            {
+              type = "title";
+              color = {
+                user = "cyan";
+                at = "red";
+                host = "green";
+              };
+            }
+            "break"
+            {
+              type = "custom";
+              format = ">>> [ BONE ] ===============================";
+              outputColor = "green";
+            }
+            {
+              type = "host";
+              key = "       SYS";
+              keyColor = "green";
+              outputColor = "yellow";
+            }
+            {
+              type = "cpu";
+              key = "       CPU";
+              temp = true;
+              keyColor = "green";
+              outputColor = "yellow";
+            }
+            {
+              type = "gpu";
+              key = "       GPU";
+              temp = true;
+              keyColor = "green";
+              outputColor = "yellow";
+            }
+            {
+              type = "memory";
+              key = "       RAM";
+              keyColor = "green";
+              outputColor = "yellow";
+            }
+            {
+              type = "swap";
+              key = "       SWP";
+              keyColor = "green";
+              outputColor = "yellow";
+            }
+            {
+              type = "disk";
+              key = "       DSK";
+              keyColor = "green";
+              outputColor = "yellow";
+            }
+            "break"
+            {
+              type = "custom";
+              format = ">>> [ BLOOD ] ==============================";
+              outputColor = "red";
+            }
+            {
+              type = "os";
+              key = "       O/S";
+              keyColor = "red";
+              outputColor = "yellow";
+            }
+            {
+              type = "kernel";
+              key = "       KRN";
+              keyColor = "red";
+              outputColor = "yellow";
+            }
+            {
+              type = "packages";
+              key = "       PKG";
+              keyColor = "red";
+              outputColor = "yellow";
+            }
+            {
+              type = "wm";
+              key = "       W/M";
+              keyColor = "red";
+              outputColor = "yellow";
+            }
+            {
+              type = "display";
+              key = "       VIZ";
+              keyColor = "red";
+              outputColor = "yellow";
+            }
+            {
+              type = "terminal";
+              key = "       TRM";
+              keyColor = "red";
+              outputColor = "yellow";
+            }
+            {
+              type = "command";
+              key = "       GEN";
+              keyColor = "red";
+              outputColor = "yellow";
+              text = "basename$(readlink /nix/var/nix/profiles/system) | cut -d'-' -f2";
+            }
+            {
+              type = "command";
+              key = "       AGE";
+              keyColor = "red";
+              outputColor = "yellow";
+              text = "sh -c 's=$(( $(date +%s) - $(stat -c %Y /run/current-system) )); echo \"$((s/86400))d $(((s/3600)%24))h $(((s/60)%60))m\"'";
+            }
+            "break"
+            {
+              type = "custom";
+              format = ">>> [ BREATH ] =============================";
+              outputColor = "cyan";
+            }
+            {
+              type = "battery";
+              key = "       PWR";
+              keyColor = "cyan";
+              outputColor = "yellow";
+            }
+            {
+              type = "publicip";
+              key = "       NET";
+              timeout = 800;
+              keyColor = "cyan";
+              outputColor = "yellow";
+            }
+            {
+              type = "localip";
+              key = "       LAN";
+              showMAC = true;
+              keyColor = "cyan";
+              outputColor = "yellow";
+            }
+            {
+              type = "command";
+              key = "       MYC";
+              keyColor = "cyan";
+              outputColor = "yellow";
+              text = ''ip=$(ip -6 addr show dev mycelium0 2>/dev/null | awk '/inet6/ {print $2}' | head -n1); [ -z "$ip" ] && echo "Unlinked" || echo "$ip"'';
+            }
+            {
+              type = "command";
+              key = "       TSL";
+              keyColor = "cyan";
+              outputColor = "yellow";
+              text = ''ip=$(ip -4 addr show dev tailscale0 2>/dev/null | awk '/inet/ {print $2}' | head -n1); [ -z "$ip" ] && echo "Unlinked" || echo "$ip"'';
+            }
+            {
+              type = "command";
+              key = "       VPN";
+              keyColor = "cyan";
+              outputColor = "yellow";
+              text = ''ip=$(ip -4 addr show dev proton 2>/dev/null | awk '/inet/ {print $2}' | head -n1); if [ -z "$ip" ]; then && echo "Unlinked"; else echo "$ip [$(curl -sm 2 ipinfo.io/country 2>/dev/null || echo "UNK")]"; fi'';
+            }
+            {
+              type = "shell";
+              key = "       SHL";
+              keyColor = "cyan";
+              outputColor = "yellow";
+            }
+            {
+              type = "uptime";
+              key = "       UPT";
+              keyColor = "cyan";
+              outputColor = "yellow";
+            }
+            {
+              type = "datetime";
+              key = "       CLK";
+              keyColor = "cyan";
+              outputColor = "yellow";
+            }
+            {
+              type = "locale";
+              key = "       LOC";
+              keyColor = "cyan";
+              outputColor = "yellow";
+            }
+            "break"
+            {
+              type = "separator";
+              string = "==";
+              outputColor = "yellow";
+            }
+            "colors"
+            "break"
+          ];
         };
       };
     };

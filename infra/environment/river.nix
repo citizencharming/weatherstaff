@@ -12,6 +12,8 @@
 #
 # ==//./infra/environment/river.nix \\==
 #
+# ==// NOTE: DEPRECATED FUNTIL TIME IS AVAILABLE TO TINKER \\==
+#
 {pkgs, ...}: let
   c = {
     base00 = "0a001f"; # Abyssal Indigo
@@ -32,7 +34,7 @@
     base0F = "b3003b"; # Neon Blood
   };
 in {
-  programs.river = {
+  programs.river-classic = {
     enable = true;
     extraPackages = with pkgs; [
       fuzzel
@@ -40,6 +42,7 @@ in {
       cliphist # Clipboard
       swww
       ristate
+      waybar
     ];
   };
 

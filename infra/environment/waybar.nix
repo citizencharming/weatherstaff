@@ -28,15 +28,17 @@ in {
         position = "top";
         height = 30;
 
-        modules-left = ["river/tags" "river/window"];
+        modules-left = ["sway/workspaces" "sway/window"];
         modules-center = ["clock"];
         modules-right = ["custom/nixos-updates" "custom/nixos-generation" "pulseaudio" "network" "battery" "tray"];
 
-        "river/tags" = {
-          num-tags = 9;
+        "river/workspaces" = {
+          disable-scroll = true;
+          all-outputs = true;
+          format = "{name}";
         };
 
-        "river/window" = {
+        "sway/window" = {
           max-length = 50;
           format = "[ (title) ]";
         };

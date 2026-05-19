@@ -13,13 +13,11 @@
 # ==//./modules/programs/nyxt.nix \\==
 #
 {
-  inputs,
+  config,
   pkgs,
   ...
 }: let
-  themes = import ./infra/software/homeProfiles/colors.nix {inherit inputs;};
-  br = themes.black-rainbow.palette;
-  ghost = themes.digital-necromancy.palette;
+  c = config.colorScheme.palette;
 in {
   home.packages = with pkgs; [
     nyxt # Lisp programmable browser
@@ -43,11 +41,11 @@ in {
     ;; overwrite theme
     (defparamter "theme-black-rainbow"
       (make-instance 'theme:theme
-      :background-color "#{br.base00}"
-      :text-color "#{br.base05}"
-      :primary-color "#{br.base0A}"
-      :secondary-color "#{br.base02}"
-      :accent-color "#{br.base0C}"
+      :background-color "#{c.base00}"
+      :text-color "#{c.base05}"
+      :primary-color "#{c.base0A}"
+      :secondary-color "#{c.base02}"
+      :accent-color "#{c.base0C}"
       ))
     (define-configuration browser
       ((theme *theme-black-rainbow*)))

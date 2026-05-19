@@ -14,7 +14,7 @@
 {...}: {
   services.mako = {
     enable = true;
-    font = "Fira Code Nerd Font 10";
+    font = "Fira Code Nerd Font 12";
     width = 300;
     height = 100;
     margin = "10";
