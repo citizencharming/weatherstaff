@@ -25,7 +25,7 @@ in
     enableFishIntegration = true;
     enableBashIntegration = true;
     defaultOptions = [
-      "--color=bg+:#${c.base01},bg:#${ce.base00},spinner:#${c.base0C},hl:#${c.base0D}"
+      "--color=bg+:#${c.base01},bg:#${c.base00},spinner:#${c.base0C},hl:#${c.base0D}"
       "--color=fg:#${c.base05},header:#${c.base0D},info:#${c.base0A},pointer:#${c.base0C}"
       "--color=marker:#${c.base0C},fg+:#${c.base05},prompt:#${c.base0A},hl+:#${c.base0A}"
     ];
@@ -80,8 +80,8 @@ in
         dir_transparent = false;
       };
       status = {
-        separator_open = "";
-        separator_close = "";
+        separator_open = "";
+        separator_close = "";
         mode_normal = {
           fg = "#${c.base00}";
           bg = "#${c.base0B}"; # Green

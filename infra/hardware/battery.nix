@@ -18,7 +18,7 @@
 {
   services.power-profiles-daemon.enable = false;
 
-  services.udev.extraRules = ''SUBSYSTEM=="power_supply",KERNEL="BAT0",ATTR{charge_control_end_threshold}="80"'';
+  services.udev.extraRules = ''SUBSYSTEM=="power_supply", KERNEL=="BAT0", ATTR{charge_control_end_threshold}="80"'';
 
   services.tlp = {
     enable = true;

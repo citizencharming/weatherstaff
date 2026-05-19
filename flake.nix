@@ -32,12 +32,12 @@
           #};
         nixosConfigurations.evil-ball = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
-          specialArgs = { inherit inputs; };
+          specialArgs = { inherit inputs; self = inputs.self; };
           modules = [
             inputs.disko.nixosModules.disko
             inputs.home-manager.nixosModules.home-manager
             inputs.sops-nix.nixosModules.sops
-            ./infra/nodes/nixosConfigurations/evil-ball.nix
+            (self + "/nodes/terminals/evil-ball.nix")
           ];
         };
       };

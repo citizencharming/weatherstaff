@@ -16,8 +16,8 @@
 { pkgs, ... }:
 
 {
-  environment.systemPackages = with pkgs [
-    protonvpn-cli_2
+  environment.systemPackages = with pkgs; [
+    proton-vpn-cli
     wireguard-tools
     dialog
   ];
