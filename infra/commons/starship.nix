@@ -12,66 +12,136 @@
 #
 # ==//./infra/commons/starship.nix \\==
 #
-{...}: {
+{
+  config,
+  lib,
+  ...
+}: {
   programs.starship = {
     enable = true;
     enableFishIntegration = true;
     settings = {
-      format = ''
-        $directory$git_branch$git_status$nix_shell$direnv$container
-        $character'';
-      # Ridge
-      # Locality
+      palettes.black_rainbow = {
+        amber = "#${config.colorScheme.palette.base05}";
+        indigo = "#${config.colorScheme.palette.base00}";
+        purple = "#${config.colorScheme.palette.base04}";
+        crimson = "#${config.colorScheme.palette.base0F}";
+        red = "#${config.colorScheme.palette.base08}";
+        blue = "#${config.colorScheme.palette.base0D}";
+        green = "#${config.colorScheme.palette.base0B}";
+        cyan = "#${config.colorScheme.palette.base0C}";
+        magenta = "#${config.colorScheme.palette.base0E}";
+        yellow = "#${config.colorScheme.palette.base0A}";
+        orange = "#${config.colorScheme.palette.base09}";
+      };
+      format = lib.concatStrings [
+        "[█](fg:red)"
+        "$os$username"
+        "$directory"
+        "$git_branch$git_status"
+        "$direnv"
+        "$nix_shell$terraform$rust$python$lua"
+        "$docker_context$container"
+        "$shell"
+        "$time"
+        "\n$status$character"
+      ];
+      os = {
+        disabled = false;
+        style = "bg:red fg:indigo bold";
+        format = "[ $symbol]($style)";
+      };
+      username = {
+        show_always = true;
+        style_user = "bg:red fg:indigo bold";
+        style_root = "bg:red fg:#ffffff bold";
+        format = "[ $user ]($style)[](fg:red bg:orange)";
+      };
       directory = {
-        style = "bg:color4 fg:color0 bold";
-        format = "[ $path ]($style)[](fg:color4 bg:color8)";
+        style = "bg:orange fg:indigo bold";
+        format = "[ $path ]($style)[](fg:orange bg:yellow)";
         truncation_length = 3;
         truncation_symbol = "…/";
       };
-      # Git
       git_branch = {
-        style = "bg:color8 fg:color15 bold";
-        format = "[  $branch ]($style)";
+        style = "bg:yellow fg:indigo bold";
+        format = "[ ⎇ $branch ]($style)";
         disabled = false;
       };
       git_status = {
-        style = "bg:color8 fg:color11 bold";
-        format = "[($all_status$ahead_behind )]($style)[](fg:color8 bg:color11)";
+        style = "bg:yellow fg:indigo bold";
+        format = "[($all_status$ahead_behind )]($style)[](fg:yellow bg:green)";
         disabled = false;
-        # Clean geometric representation of file metadata
-        conflicted = "=";
+        conflicted = "≡";
         ahead = "▲";
         behind = "▼";
-        diverged = "◀▶";
+        diverged = "◨";
         untracked = "?";
-        stashed = "$";
+        stashed = "⚑";
         modified = "!";
         staged = "+";
         renamed = "»";
         deleted = "x";
       };
-      # Nix
-      nix_shell = {
-        style = "bg:color11 fg:color0 bold";
-        format = "[ ▲ $state ]($style)[](fg:color11 bg:color6)";
-        disabled = false;
-      };
-      # direnv
       direnv = {
-        style = "bg:color6 fg:color0 bold";
-        format = "[ ⬢ env ]($style)[](fg:color6 bg:color5)";
+        style = "bg:green fg:indigo bold";
+        format = "[ ⬢ env ]($style)[](fg:green bg:blue)";
         disabled = false;
       };
-      # Container
+      nix_shell = {
+        style = "bg:blue fg:indigo bold";
+        format = "[ ⎔ $state ]($style)";
+        disabled = false;
+      };
+      terraform = {
+        style = "bg:blue fg:indigo bold";
+        format = "[ ⬡ $workspace ]($style)";
+      };
+      rust = {
+        style = "bg:blue fg:indigo bold";
+        format = "[ ⋈ $version ]($style)";
+      };
+      python = {
+        style = "bg:blue fg:indigo bold";
+        format = "[ ⚯ $virtualenv ]($style)";
+      };
+      lua = {
+        style = "bg:blue fg:indigo bold";
+        format = "[ ☾ $version ]($style)";
+      };
+      custom.forge_bridge = {
+        when = "true";
+        style = "bg:cyan fg:blue";
+        format = "[]($style)";
+      };
+      docker_context = {
+        style = "bg:cyan fg:indigo bold";
+        format = "[ ⬟ $context ]($style)";
+      };
       container = {
-        style = "bg:color5 fg:color15 bold";
-        format = "[ ■ $name ]($style)[](fg:color5 bg:none)";
+        style = "bg:cyan fg:indigo bold";
+        format = "[ ■ $name ]($style)[](fg:cyan bg:magenta)";
         disabled = false;
       };
-      # Prompt
+      shell = {
+        disabled = false;
+        style = "bg:magenta fg:indigo bold";
+        format = "[ $indicator ]($style)[](fg:magenta bg:amber)";
+      };
+      time = {
+        disabled = false;
+        time_format = "%H:%M";
+        style = "bg:purple fg:indigo bold";
+        format = "[ ⧖ $time ]($style)[](fg:amber bg:none)";
+      };
+      status = {
+        disabled = false;
+        style = "bg:crimson fg:amber bold";
+        format = "[ █ ERR:$int ]($style)[](fg:crimson bg:none) ";
+      };
       character = {
-        success_symbol = "[◆](bold color2) ";
-        error_symbol = "[▼](bold color1) ";
+        success_symbol = "[▶](bold purple)";
+        error_symbol = "[▶](bold crimson)";
       };
     };
   };

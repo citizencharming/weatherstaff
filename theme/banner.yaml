@@ -1,0 +1,87 @@
+scheme:
+"Rosé Pine"
+# original author of the base16 for rosepine
+author:
+"Emilia Dunfelt <sayhi@dunfelt.se>"
+base00:
+"191724"
+base01:
+"1f1d2e"
+base02:
+"26233a"
+base03:
+"555169"
+base04:
+"6e6a86"
+base05:
+"e0def4"
+base06:
+"f0f0f3"
+base07:
+"c5c3ce"
+base08:
+"e2e1e7"
+base09:
+"eb6f92"
+base0A:
+"f6c177"
+base0B:
+"ebbcba"
+base0C:
+"31748f"
+base0D:
+"9ccfd8"
+base0E:
+"c4a7e7"
+base0F:
+"e5e5e5"
+# banner extensions
+highlight:
+"c4a7e7"
+hialt0:
+"f6c177"
+hialt1:
+"c4a7e7"
+hialt2:
+"31748f" # pine
+
+urgent:
+"eb6f92"
+warn:
+"f6c177"
+confirm:
+"9ccfd8"
+link:
+"c4a7e7" # purple links
+
+pfg-highlight:
+"191724"
+pfg-hialt0:
+"191724"
+pfg-hialt1:
+"191724"
+pfg-hialt2:
+"e0def4"
+pfg-urgent:
+"191724"
+pfg-warn:
+"191724"
+pfg-confirm:
+"191724"
+pfg-link:
+"191724"
+ansi00:
+"191724"
+ansi01:
+"eb6f92"
+ansi02:
+"9ccfd8"
+ansi03:
+"f6c177"
+ansi04:
+"31748f"
+ansi05:
+"c4a7e7"
+ansi06:
+"ebbcba"
+ansi07: "e0def4"

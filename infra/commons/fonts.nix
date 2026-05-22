@@ -17,10 +17,10 @@
     jetbrains-mono
     noto-fonts-cjk-sans
     fira-code
-    iosevka
+    pkgs.nerd-fonts.iosevka
     victor-mono
     hack-font
-    monaspace
+    pkgs.nerd-fonts.monaspace
   ];
 
   fonts.fontconfig.enable = true;

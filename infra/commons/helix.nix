@@ -44,7 +44,7 @@ in {
 
     themes = {
       dynamic-matrix = {
-        "ui.background" = {bg = "#150d0e";};
+        "ui.background" = {bg = "#${c.extbg1}";};
         "ui.text" = {fg = "#${c.base05}";};
         "ui.cursor" = {
           fg = "#${c.base00}";

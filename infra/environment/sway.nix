@@ -12,36 +12,21 @@
 #
 # ==//./infra/environment/sway.nix \\==
 #
-{pkgs, ...}: let
-  c = {
-    base00 = "0a001f"; # Abyssal Indigo
-    base01 = "14003d"; # Plasma Shadow
-    base02 = "220066"; # Ultraviolet Iron
-    base03 = "7a2900"; # Smoking Copper
-    base04 = "a34700"; # Terminal Burnout
-    base05 = "ff7700"; # Amber Phosphor
-    base06 = "ff9900"; # Sodium Flare
-    base07 = "ffbb00"; # Solar Yellow
-    base08 = "ff0055"; # Laser Red
-    base09 = "0066ff"; # Electric Blue
-    base0A = "ffee00"; # Gold Circuitry
-    base0B = "00ff55"; # Radioactive Green
-    base0C = "00e5ff"; # Cherenkov Cyan
-    base0D = "7700ff"; # Hyper Violet
-    base0E = "ff00aa"; # Psychic Magenta
-    base0F = "b3003b"; # Neon Blood
-  };
-  modifier = "Mod4";
+{
+  pkgs,
+  config,
+  ...
+}: let
+  c = config.colorScheme.palette;
+  mod = "Mod4";
 in {
   wayland.windowManager.sway = {
     enable = true;
-    xwayland.enable = true; # legacy applications
+    xwayland = true; # legacy
 
     config = {
-      inherit modifier;
       terminal = "ghostty";
       menu = "fuzzel";
-      editor = "helix";
 
       window = {
         border = 2;
@@ -55,11 +40,11 @@ in {
 
       colors = {
         focused = {
-          border = "#${c.base0D}";
-          background = "#${c.base0D}";
+          border = "#${c.base05}";
+          background = "#${c.base01}";
           text = "#${c.base05}";
-          indicator = "#${c.base0D}";
-          childBorder = "#${c.base0D}";
+          indicator = "#${c.base05}";
+          childBorder = "#${c.base05}";
         };
         unfocused = {
           border = "#${c.base02}";
@@ -70,9 +55,7 @@ in {
         };
       };
 
-      keybindings = let
-        mod = modifier;
-      in {
+      keybindings = {
         "${mod}+Return" = "exec ghostty";
         "${mod}+Space" = "exec fuzzel";
         "${mod}+n" = "exec nyxt";
@@ -105,17 +88,21 @@ in {
     };
   };
 
-  environment.systemPackages = with pkgs; [
-    fuzzel # Application Launcher
+  programs.fuzzel = {
+    enable = true;
+    settings = {
+      colors = {
+        background = "${c.extbg2}ff";
+        text = "${c.base05}ff";
+        match = "${c.base0B}ff";
+        selection = "${c.base02}ff";
+      };
+    };
+  };
+
+  home.packages = with pkgs; [
     wl-clipboard
     cliphist
-    swww
-    waybar
+    awww
   ];
-
-  xdg.portal = {
-    enable = true;
-    extraPortals = [pkgs.xdg-desktop-portal-gtk pkgs.xdg-desktop-portal-wlr];
-    config.common.default = "gtk";
-  };
 }

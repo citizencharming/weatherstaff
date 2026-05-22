@@ -30,6 +30,11 @@ in {
     ];
   };
 
+  programs.zoxide = {
+    enable = true;
+    enableFishIntegration = true;
+  };
+
   programs.bat = {
     enable = true;
     config = {
@@ -116,20 +121,18 @@ in {
 
   home.packages = with pkgs; [
     ripgrep # Replaces grep
-    tldr # Simplified Documentation
+    tealdeer # Simplified Documentation
     sops # Secrets Management
     rbw # Bitwarden
     wayshot # Screenshot
     snappy # Cropper and modifier
     which # Locates absolute binary paths within the Nix store
     man-db # Local system manual pager
-    texinfo # GNU info documentation reader
     less # Traditional text pager
     chafa # Image to ASCII
     rsync
     btop
     git
-    zoxide
     fd
     curl
   ];

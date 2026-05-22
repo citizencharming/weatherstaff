@@ -1,4 +1,4 @@
-# ====/// WEATHERSTAFF \\\ evil-ball.nix \\====
+# ====/// WEATHERSTAFF \\\ orthanc.nix \\====
 #
 #
 #     _
@@ -10,7 +10,7 @@
 #     /-_/-_/  \\,/   \/\\  \\, \\ |/ \\,/   \\,  ,-_-   \\,  \/\\  \\,  \\,
 #                                 _/
 #
-# ==//./nodes/terminals/evil-ball.nix \\==
+# ==//./nodes/servers/orthanc.nix \\==
 {
   self,
   pkgs,
@@ -21,15 +21,14 @@
     (self + "/infra/hardware/root.nix") # disko
     (self + "/infra/hardware/boot.nix") # systemd
     (self + "/infra/hardware/zen.nix") # kernel
-    (self + "/infra/hardware/amd.nix") # cpu
-    (self + "/infra/hardware/radeon.nix") # GPU
-    (self + "/infra/hardware/battery.nix")
+    (self + "/infra/hardware/intel.nix") # cpu
+    (self + "/infra/hardware/nvidia.nix") # GPU
     (self + "/infra/hardware/audio.nix")
     (self + "/infra/commons/tailscale.nix") # mesh (IPv4)
-    #(self + "/infra/commons/mycelium.nix") # mesh (IPv6)
-    #(self + "/infra/environment/tuigreet.nix") # greetd login
-    #(self + "/modules/suites/control.nix") # mission control
-    #(self + "/modules/services/proton.nix") # VPN
+    (self + "/infra/commons/mycelium.nix") # mesh (IPv6)
+    (self + "/infra/environment/tuigreet.nix") # greetd login
+    (self + "/modules/suites/control.nix") # mission control
+    (self + "/modules/services/proton.nix") # VPN
   ];
 
   nixpkgs.config = {
@@ -41,7 +40,7 @@
     };
   };
 
-  disko.devices.disk.main.device = "/dev/disk/by-id/nvme-UMIS_RPJTJ256MEE1OWX_SS1B60641Z1CH17K029S";
+  disko.devices.disk.main.device = "";
 
   # ==// Ephemeral Boot \ uses snapshot to reset OS to original state \==
   #boot.initrd.postDeviceCommands = inputs.nixpkgs.lib.mkAfter ''
@@ -134,7 +133,7 @@
       imports = [
         (self + "/infra/commons/colors.nix")
         (self + "/infra/environment/sway.nix")
-        #(self + "/infra/environment/gtk.nix")
+        (self + "/infra/environment/gtk.nix")
         (self + "/infra/commons/fonts.nix")
         (self + "/infra/commons/fish.nix")
         (self + "/infra/commons/ghostty.nix")
@@ -144,10 +143,10 @@
         (self + "/modules/services/mako.nix")
         (self + "/modules/suites/excalibur.nix")
         (self + "/modules/suites/exocortex.nix")
-        #(self + "/modules/suites/hackerman.nix")
+        (self + "/modules/suites/hackerman.nix")
         (self + "/modules/programs/easyeffects.nix")
         (self + "/modules/programs/nyxt.nix")
-        #(self + "/modules/programs/qutebrowser.nix")
+        (self + "/modules/programs/qutebrowser.nix")
         (self + "/modules/programs/zeditor.nix")
         (self + "/modules/programs/discordo.nix")
       ];

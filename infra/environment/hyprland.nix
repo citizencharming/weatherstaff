@@ -17,10 +17,11 @@
   pkgs,
   ...
 }: let
-  c_void = "rgba(${config.colorScheme.palette.base00}ff)";
-  c_active = "rgba(${config.colorScheme.palette.base0A}ff)";
-  c_inactive = "rgba(${config.colorScheme.palette.base03}ff)";
-  c_alert = "rgba(${config.colorScheme.palette.base08}ff)";
+  # Stable Gruvbox Dark Topology Assignments
+  c_void = "rgba(40, 40, 40, 1.0)"; # #282828 (Dark0 Void)
+  c_active = "rgba(250, 189, 47, 1.0)"; # #fabd2f (Phosphorus Yellow Accent)
+  c_inactive = "rgba(146, 131, 116, 1.0)"; # #928374 (Industrial Gray Subdued)
+  c_alert = "rgba(204, 36, 29, 1.0)"; # #cc241d (Tape Error Blood Red)
 in {
   wayland.windowManager.hyprland = {
     enable = true;
@@ -45,7 +46,7 @@ in {
         drop_shadow = true;
         shadow_range = 15;
         shadow_render_power = 3;
-        "col.shadow" = "rgba(000000aa)";
+        "col.shadow" = "rgba(29, 32, 33, 0.85)"; # Shadow falls back to Dark0_Hard
         blur = {
           enabled = true;
           size = 3;
@@ -74,9 +75,8 @@ in {
         "$mod, Return, exec, ghostty" # terminal emulator
         "$mod, D, exec, fuzzel" # app launcher
         "$mod, V, exec, cliphist list | fuzzel --dmenu | cliphist decode | wl-copy" # cliphist
-        # custom toggles
-        "$mod SHIFT, R, exec, toggle-redshift"
-        "$mod SHIFT, T, exec, toggle-theme"
+        "$mod, L, exec, hyprlock" # Call programmatic lock surface
+        "$mod, X, exec, wlogout -b 2" # Call custom digital-video tracking grid
         # Windows
         "$mod, Q, killactive,"
         "$mod SHIFT, E, exit," # Violent exit to TTY
@@ -107,12 +107,13 @@ in {
       bindm = [
         "$mod, mouse:272, movewindow"
         "$mod, mouse:273, resizewindow"
-        "waybar"
       ];
 
       exec-once = [
         "wl-paste --type text --watch cliphist store"
         "wl-paste --type image --watch cliphist store"
+        "waybar"
+        "hypridle"
       ];
     };
   };
@@ -146,7 +147,7 @@ in {
         };
 
         "clock" = {
-          format = "[ {:%H:%M :: &b &d} ]";
+          format = "[ {:%H:%M :: %b %d} ]";
         };
 
         "pulseaudio" = {
@@ -177,21 +178,31 @@ in {
 
   style = ''
     * {
-      font-family: "JetBrains Mono", monospace;
-      font-size: 12px;
-      color: #${config.colorScheme.palette.base05};
-    }
-    window#waybar {
-      background-color: #${config.colorScheme.palette.base00};
-      border-bottom: 2px solid #${config.colorScheme.palette.base0A};
-    }
-    #workspaces button {
-      padding: 0 5px;
-      color: #${config.colorScheme.palette.base05};
-    }
-    #workspaces button.active {
-      color: #${config.colorScheme.palette.base0A};
+      font-family: "Fira Code", monospace;
       font-weight: bold;
+      font-size: 11px;
+      color: #ebdbb2; /* Gruvbox Light0 */
+    }
+
+    window#waybar {
+      background-color: #282828; /* Gruvbox Dark0 Floor */
+      border-bottom: 2px solid #fabd2f; /* Phosphorus Yellow Frame Line */
+    }
+
+    #workspaces button {
+      padding: 0 8px;
+      color: #928374; /* Gruvbox Gray for inactive data slots */
+      border-radius: 0px;
+    }
+
+    #workspaces button.active {
+      color: #fabd2f; /* Active phosphorus burn-in highlight */
+      border-bottom: 2px solid #cc241d; /* Underline signal block in alert red */
+    }
+
+    #clock, #pulseaudio, #network, #tray {
+      padding: 0 10px;
+      color: #ebdbb2;
     }
   '';
 }

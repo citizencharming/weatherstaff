@@ -1,0 +1,322 @@
+Users
+i-magi
+xiv-tem
+xix-sun
+xviii-moon
+
+inventory
+roles
+    super
+    queen
+    drone
+    major
+    minor
+    terminal
+    server
+services
+    zerotier
+    ssh access
+    syncthing
+    borgbackup
+
+pve
+    description: Desktop Computer
+    product: Alder Lake-H PCH (ERYING G660 ITX) (Default string)
+    vendor: Intel
+    version: E1.0G
+    serial: Default string
+    width: 64 bits
+    capabilities: smbios-3.5.0 dmi-3.5.0 smp vsyscall32
+    configuration: boot=normal chassis=desktop family=Default string sku=Default string uuid=ebfff000-dc1b-11ed-a4b5-d62ade721100
+  *  *-memory
+          description: System Memory
+          physical id: 27
+          slot: System board or motherboard
+          size: 64GiB
+        *-bank:0
+             description: DIMM DDR4 Synchronous 3200 MHz (0.3 ns)
+             product: CP32G4DFRA32A.C16FF
+             vendor: Crucial Technology
+             physical id: 0
+             serial: E81CC346
+             slot: Controller0-ChannelA-DIMM0
+             size: 32GiB
+             width: 64 bits
+             clock: 3200MHz (0.3ns)
+        *-bank:1
+             description: DIMM DDR4 Synchronous 3200 MHz (0.3 ns)
+             product: CP32G4DFRA32A.C16FF
+             vendor: Crucial Technology
+             physical id: 1
+             serial: E81CC180
+             slot: Controller1-ChannelA-DIMM0
+             size: 32GiB
+             width: 64 bits
+             clock: 3200MHz (0.3ns)
+
+     *-cpu
+          description: CPU
+          product: 12th Gen Intel(R) Core(TM) i5-12500H
+          vendor: Intel Corp.
+          physical id: 3c
+          bus info: cpu@0
+          version: 6.154.3
+          serial: To Be Filled By O.E.M.
+          slot: U3E1
+          size: 400MHz
+          capacity: 4500MHz
+          width: 64 bits
+          clock: 100MHz
+          capabilities: lm fpu fpu_exception wp vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp x86-64 constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf tsc_known_freq pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb ssbd ibrs ibpb stibp ibrs_enhanced tpr_shadow flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid rdseed adx smap clflushopt clwb intel_pt sha_ni xsaveopt xsavec xgetbv1 xsaves split_lock_detect user_shstk avx_vnni dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp hwp_pkg_req hfi vnmi umip pku ospke waitpkg gfni vaes vpclmulqdq rdpid movdiri movdir64b fsrm md_clear serialize arch_lbr ibt flush_l1d arch_capabilities cpufreq
+          configuration: cores=12 enabledcores=12 microcode=1082 threads=16
+           *-display
+                description: VGA compatible controller
+                product: GA104 [GeForce RTX 3070 Lite Hash Rate]
+                vendor: NVIDIA Corporation
+                physical id: 0
+                bus info: pci@0000:01:00.0
+                version: a1
+                width: 64 bits
+                clock: 33MHz
+                capabilities: pm msi pciexpress vga_controller cap_list rom
+                configuration: driver=vfio-pci latency=0
+                resources: iomemory:400-3ff iomemory:420-41f irq:16 memory:50000000-50ffffff memory:4000000000-41ffffffff memory:4200000000-4201ffffff ioport:7000(size=128) memory:51000000-5107ffff
+           *-multimedia
+                description: Audio device
+                product: GA104 High Definition Audio Controller
+                vendor: NVIDIA Corporation
+                physical id: 0.1
+                bus info: pci@0000:01:00.1
+                version: a1
+                width: 32 bits
+                clock: 33MHz
+                capabilities: pm msi pciexpress cap_list
+                configuration: driver=vfio-pci latency=0
+                resources: irq:17 memory:51080000-51083fff
+
+                 *-sas
+                      description: Serial Attached SCSI controller
+                      product: SAS3008 PCI-Express Fusion-MPT SAS-3
+                      vendor: Broadcom / LSI
+                      physical id: 0
+                      bus info: pci@0000:04:00.0
+                      version: 02
+                      width: 64 bits
+                      clock: 33MHz
+                      capabilities: sas pm pciexpress vpd msi msix bus_master cap_list rom
+                      configuration: driver=vfio-pci latency=0
+                      resources: irq:16 ioport:4000(size=256) memory:51c00000-51c0ffff memory:51b00000-51bfffff
+           *-network
+                description: Ethernet interface
+                product: AQC113C NBase-T/IEEE 802.3an Ethernet Controller [Marvell Scalable mGig]
+                vendor: Aquantia Corp.
+                physical id: 0
+                bus info: pci@0000:07:00.0
+                logical name: nic10g
+                version: 03
+                serial: 02:76:c6:00:da:24
+                size: 10Gbit/s
+                capacity: 10Gbit/s
+                width: 64 bits
+                clock: 33MHz
+                capabilities: pm msi pciexpress msix vpd bus_master cap_list rom ethernet physical tp 10bt-fd 100bt-fd 1000bt-fd 10000bt-fd autonegotiation
+                configuration: autonegotiation=on broadcast=yes driver=atlantic driverversion=6.17.13-2-pve duplex=full firmware=1.3.21 latency=0 link=yes multicast=yes port=twisted pair speed=10Gbit/s
+                resources: irq:16 memory:51800000-5187ffff memory:518a0000-518a0fff memory:51400000-517fffff memory:51880000-5189ffff
+        *-generic:0 UNCLAIMED
+             description: System peripheral
+             product: 12th Gen Core Processor Gaussian & Neural Accelerator
+             vendor: Intel Corporation
+             physical id: 8
+             bus info: pci@0000:00:08.0
+             version: 02
+             width: 64 bits
+             clock: 33MHz
+             capabilities: msi pm cap_list
+             configuration: latency=0
+             resources: iomemory:420-41f memory:420212b000-420212bfff
+        *-memory UNCLAIMED
+             description: RAM memory
+             product: Alder Lake PCH Shared SRAM
+             vendor: Intel Corporation
+             physical id: 14.2
+             bus info: pci@0000:00:14.2
+             version: 01
+             width: 64 bits
+             clock: 33MHz (30.3ns)
+             capabilities: pm cap_list
+             configuration: latency=0
+             resources: iomemory:420-41f iomemory:420-41f memory:4202124000-4202127fff memory:420212a000-420212afff
+           *-nvme
+                description: NVMe device
+                product: Reletech P400 M.2 Pro Q2000GB
+                vendor: Phison Electronics Corporation
+                physical id: 0
+                bus info: pci@0000:08:00.0
+                logical name: /dev/nvme0
+                version: EGFM52.3
+                serial: 202102011581
+                width: 64 bits
+                clock: 33MHz
+                capabilities: nvme pciexpress msix msi pm nvm_express bus_master cap_list
+                configuration: driver=nvme latency=0 nqn=nqn.2014.08.org.nvmexpress:19871987202102011581        Reletech P400 M.2 Pro Q2000GB state=live
+                resources: irq:16 memory:52000000-52003fff
+              *-namespace:0
+                   description: NVMe disk
+                   physical id: 0
+                   logical name: hwmon3
+              *-namespace:1
+                   description: NVMe disk
+                   physical id: 2
+                   logical name: /dev/ng0n1
+              *-namespace:2
+                   description: NVMe disk
+                   physical id: 1
+                   bus info: nvme@0:1
+                   logical name: /dev/nvme0n1
+                   size: 1863GiB (2TB)
+                   capabilities: gpt-1.00 partitioned partitioned:gpt
+                   configuration: guid=6a72c627-7091-4737-87c5-46be55977207 logicalsectorsize=512 sectorsize=512 wwid=nvme.1987-323032313032303131353831-52656c65746563682050343030204d2e322050726f2051323030304742-00000001
+           *-network DISABLED
+                description: Ethernet interface
+                product: RTL8125 2.5GbE Controller
+                vendor: Realtek Semiconductor Co., Ltd.
+                physical id: 0
+                bus info: pci@0000:09:00.0
+                logical name: nic0
+                version: 05
+                serial: 00:e2:69:6a:19:7b
+                width: 64 bits
+                clock: 33MHz
+                capabilities: pm msi pciexpress msix vpd bus_master cap_list ethernet physical
+                configuration: broadcast=yes driver=r8169 driverversion=6.17.13-2-pve latency=0 link=no multicast=yes
+                resources: irq:16 ioport:6000(size=256) memory:51f00000-51f0ffff memory:51f10000-51f13fff
+           *-network DISABLED
+                description: Ethernet interface
+                product: RTL8111/8168/8211/8411 PCI Express Gigabit Ethernet Controller
+                vendor: Realtek Semiconductor Co., Ltd.
+                physical id: 0
+                bus info: pci@0000:0a:00.0
+                logical name: nic1
+                version: 15
+                serial: 00:e2:69:6a:19:7a
+                width: 64 bits
+                clock: 33MHz
+                capabilities: pm msi pciexpress msix bus_master cap_list ethernet physical
+                configuration: broadcast=yes driver=r8169 driverversion=6.17.13-2-pve latency=0 link=no multicast=yes
+                resources: irq:17 ioport:5000(size=256) memory:51e04000-51e04fff memory:51e00000-51e03fff
+        *-isa
+             description: ISA bridge
+             product: Alder Lake PCH eSPI Controller
+             vendor: Intel Corporation
+             physical id: 1f
+             bus info: pci@0000:00:1f.0
+             version: 01
+             width: 32 bits
+             clock: 33MHz
+             capabilities: isa bus_master
+             configuration: latency=0
+           *-pnp00:00
+                product: PnP device PNP0c02
+                physical id: 0
+                capabilities: pnp
+                configuration: driver=system
+           *-pnp00:01
+                product: PnP device PNP0303
+                physical id: 1
+                capabilities: pnp
+                configuration: driver=i8042 kbd
+           *-pnp00:02
+                product: PnP device PNP0f03
+                physical id: 2
+                capabilities: pnp
+                configuration: driver=i8042 aux
+           *-pnp00:03
+                product: PnP device PNP0501
+                physical id: 3
+                capabilities: pnp
+                configuration: driver=serial
+           *-pnp00:04
+                product: PnP device PNP0c02
+                physical id: 4
+                capabilities: pnp
+                configuration: driver=system
+           *-pnp00:05
+                product: PnP device PNP0c02
+                physical id: 5
+                capabilities: pnp
+                configuration: driver=system
+           *-pnp00:06
+                product: PnP device PNP0c02
+                physical id: 6
+                capabilities: pnp
+                configuration: driver=system
+           *-pnp00:07
+                product: PnP device PNP0c02
+                physical id: 7
+                capabilities: pnp
+                configuration: driver=system
+        *-multimedia
+             description: Audio device
+             product: Alder Lake PCH-P High Definition Audio Controller
+             vendor: Intel Corporation
+             physical id: 1f.3
+             bus info: pci@0000:00:1f.3
+             logical name: card0
+             logical name: /dev/snd/controlC0
+             logical name: /dev/snd/hwC0D0
+             logical name: /dev/snd/pcmC0D0c
+             logical name: /dev/snd/pcmC0D0p
+             logical name: /dev/snd/pcmC0D2c
+             version: 01
+             width: 64 bits
+             clock: 33MHz
+             capabilities: pm msi bus_master cap_list
+             configuration: driver=snd_hda_intel latency=32
+             resources: iomemory:420-41f iomemory:420-41f irq:193 memory:4202120000-4202123fff memory:4202000000-42020fffff
+           *-input:0
+                product: HDA Intel PCH Rear Mic
+                physical id: 0
+                logical name: input11
+                logical name: /dev/input/event8
+           *-input:1
+                product: HDA Intel PCH Front Mic
+                physical id: 1
+                logical name: input12
+                logical name: /dev/input/event9
+           *-input:2
+                product: HDA Intel PCH Line
+                physical id: 2
+                logical name: input13
+                logical name: /dev/input/event10
+           *-input:3
+                product: HDA Intel PCH Line Out
+                physical id: 3
+                logical name: input14
+                logical name: /dev/input/event11
+           *-input:4
+                product: HDA Intel PCH Front Headphone
+                physical id: 4
+                logical name: input15
+                logical name: /dev/input/event12
+        *-serial:0
+             description: SMBus
+             product: Alder Lake PCH-P SMBus Host Controller
+             vendor: Intel Corporation
+             physical id: 1f.4
+             bus info: pci@0000:00:1f.4
+             version: 01
+             width: 64 bits
+             clock: 33MHz
+             configuration: driver=i801_smbus latency=0
+             resources: iomemory:420-41f irq:16 memory:4202128000-42021280ff ioport:efa0(size=32)
+        *-serial:1
+             description: Serial bus controller
+             product: Alder Lake-P PCH SPI Controller
+             vendor: Intel Corporation
+             physical id: 1f.5
+             bus info: pci@0000:00:1f.5
+             version: 01
+             width: 32 bits
+             clock: 33MHz
+             configuration: driver=intel-spi latency=0
+             resources: irq:0 memory:51100000-51100fff65

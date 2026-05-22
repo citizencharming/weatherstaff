@@ -34,6 +34,7 @@
     mermaid-cli # Text to diagram
     # LSPs
     nixd # Nix
+    nil
     marksman # Markdown
     bash-language-server # Bash
     taplo # TOML (also formatter)

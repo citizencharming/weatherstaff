@@ -85,27 +85,27 @@ in {
       }
 
       window#waybar {
-        background-color: #${c.base00}; /* Abyssal Indigo */
-        color: #${c.base06}; /* Sodium Flare */
-        border-bottom: 2px solid #${c.base02}; /* Ultraviolet Iron */
+        background-color: #${c.base00};
+        color: #${c.base06};
+        border-bottom: 2px solid #${c.base02};
       }
 
       #tags button {
         padding: 0 8px;
-        color: #${c.base05}; /* Amber Phosphor */
+        color: #${c.base05};
         background: transparent;
-        border-right: 1px solid #${c.base01}; /* Plasma Shadow */
+        border-right: 1px solid #${c.base01};
       }
 
       #tags button.focused {
-        background-color: #${c.base0E}; /* Psychic Magenta */
+        background-color: #${c.base0E};
         color: #${c.base00};
         font-weight: bold;
       }
 
       #tags button.urgent {
-      background-color: #${c.base08}; /* Laser Red */
-      color: #${c.base00};
+        background-color: #${c.base08};
+        color: #${c.base00};
       }
 
       #window {
@@ -113,8 +113,8 @@ in {
         color: #${c.base06};
       }
 
-      #custom-nixos-updates
-      #custom-nixos-generation
+      #custom-nixos-updates,
+      #custom-nixos-generation,
       #pulseaudio,
       #battery,
       #network,
@@ -126,7 +126,7 @@ in {
 
       #clock {
         padding: 0 14px;
-        color: #${c.base0A}; /* Golden Circuitry */
+        color: #${c.base0A};
         background-color: #${c.base00};
       }
 

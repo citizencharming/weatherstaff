@@ -19,7 +19,7 @@ in {
     enable = true;
     enableFishIntegration = true;
     settings = {
-      font-family = "Monaspace Neon";
+      font-family = "MonaspiceNE Nerd Font";
       font-size = 12;
       font-feature = ["liga" "calt"];
       cursor-style = "block";
@@ -29,7 +29,7 @@ in {
       window-padding-x = 12;
       window-padding-y = 12;
       window-theme = "ghostty";
-      #custom-shader = "crt-phosphor-bloom.glsl";
+      custom-shader = "crt-phosphor-bloom.glsl";
       unfocused-split-opacity = 0.7;
       unfocused-split-fill = "#${c.base01}";
 
@@ -72,19 +72,19 @@ in {
     };
   };
 
-  #xdg.configFile."ghostty/crt-phosphor-bloom.glsl".text = ''
-  #  void mainImage(out vec4 fragColor, in vec2 fragCoord) {
-  #    vec2 uv = fragCoord.xy / iResolution.xy;
-  #    vec2 crt_uv = uv * 2.0 - 1.0;
+  xdg.configFile."ghostty/crt-phosphor-bloom.glsl".text = ''
+      void mainImage(out vec4 fragColor, in vec2 fragCoord) {
+        vec2 uv = fragCoord.xy / iResolution.xy;
+        vec2 crt_uv = uv * 2.0 - 1.0;
 
-  #    // CHROMATIC ABERRATION
-  #    float r = texture(iChannel0, crt_uv + vec2(0.001, 0.0)).r;
-  #    float g = texture(iChannel0, crt_uv).g;
-  #    float b = texture(iChannel0, crt_uv - vec2(0.001, 0.0)).b;
+        // CHROMATIC ABERRATION
+        float r = texture(iChannel0, crt_uv + vec2(0.001, 0.0)).r;
+        float g = texture(iChannel0, crt_uv).g;
+        float b = texture(iChannel0, crt_uv - vec2(0.001, 0.0)).b;
 
-  #    // SCANLINE
-  #    float scanline = sin(uv.y * 800.0) * 0.04;
-  #    fragColor = vec4(r - scanline, g - scanline, b - scanline, 1.0);
-  #  }
-  #'';
+    #    // SCANLINE
+    #    float scanline = sin(uv.y * 800.0) * 0.04;
+    #    fragColor = vec4(r - scanline, g - scanline, b - scanline, 1.0);
+    #  }
+  '';
 }
