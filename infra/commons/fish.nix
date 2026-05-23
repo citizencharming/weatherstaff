@@ -13,8 +13,8 @@
 # ==//./infra/commons/fish.nix \\==
 #
 {pkgs, ...}: let
-  voidGreen = "#011206";
-  voidRed = "#140007";
+  #voidGreen = "#011206";
+  #voidRed = "#140007";
   nmtuiDark = "root=black,black;window=black,black;border=magenta,black;title=magenta,black;textbox=white,black;button=black,red;actbutton=red,black;listbox=white,black;actlistbox=black,red";
 in {
   programs.fish = {
@@ -73,11 +73,11 @@ in {
       purge = "tmpfs_purge";
       sysd = "systemctl";
       yazi = "ghostty --font-family='Monaspace Krypton' -e yazi";
-      man = "ghostty --font-family='Monaspace Xenon' --background='${voidGreen}' -e man";
-      tldr = "ghostty --font-family='Monaspace Xenon' --background='${voidGreen}' -e tealdeer";
-      info = "ghostty --font-family='Monaspace Xenon' --background='${voidGreen}' -e info";
-      lazygit = "ghostty --font-family='Monaspace Xenon' --background='${voidRed}' -e lazygit";
-      soft = "ghostty --font-family='Monaspace Xenon' --background='${voidRed}' -e soft";
+      man = "ghostty --font-family='Monaspace Xenon' -e man";
+      tldr = "ghostty --font-family='Monaspace Xenon' -e tealdeer";
+      info = "ghostty --font-family='Monaspace Xenon' -e info";
+      lazygit = "ghostty --font-family='Monaspace Xenon' -e lazygit";
+      soft = "ghostty --font-family='Monaspace Xenon' -e soft";
       nmtui = "ghostty --font-family='Monaspace Krypton' -e env NEWT_COLORS='${nmtuiDark}' nmtui";
     };
 

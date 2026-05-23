@@ -13,6 +13,7 @@
 # ==//./nodes/terminals/evil-ball.nix \\==
 {
   self,
+  config,
   pkgs,
   inputs,
   ...
@@ -25,9 +26,10 @@
     (self + "/infra/hardware/radeon.nix") # GPU
     (self + "/infra/hardware/battery.nix")
     (self + "/infra/hardware/audio.nix")
+    (self + "/infra/hardware/bluetooth.nix")
     (self + "/infra/commons/tailscale.nix") # mesh (IPv4)
     #(self + "/infra/commons/mycelium.nix") # mesh (IPv6)
-    #(self + "/infra/environment/tuigreet.nix") # greetd login
+    (self + "/infra/environment/tuigreet.nix") # greetd login
     #(self + "/modules/suites/control.nix") # mission control
     #(self + "/modules/services/proton.nix") # VPN
   ];
@@ -40,6 +42,53 @@
       };
     };
   };
+
+  #clan.core.vars.generators = {
+  #  i-magi-password = {
+  #    files.hash = {
+  #      secret = true;
+  #      deploy = true;
+  #      neededFor = "users";
+  #    };
+  #  };
+
+  #  xvii-star-password = {
+  #    files.hash = {
+  #      secret = true;
+  #      deploy = true;
+  #      neededFor = "users";
+  #    };
+  #  };
+
+  #  wifi-secrets = {
+  #    files.env = {
+  #      secret = true;
+  #      deploy = true;
+  #    };
+  #  };
+
+  #  ssh-host-key = {
+  #    files."ssh_host_ed25519_key" = {
+  #      secret = true;
+  #      deploy = true;
+  #    };
+  #    files."ssh_host_ed25519_key.pub" = {
+  #      secret = false;
+  #      deploy = true;
+  #    };
+  #    runtimeInputs = [pkgs.openssh];
+  #    script = ''
+  #      ssh-keygen -t ed25519 -N "" -C "root@evil-ball" -f $out/ssh_host_ed25519_key
+  #    '';
+  #  };
+
+  # tailscale-key = {
+  #   files.auth = {
+  #     secret = true;
+  #     deploy = true;
+  #   };
+  # };
+  #};
 
   disko.devices.disk.main.device = "/dev/disk/by-id/nvme-UMIS_RPJTJ256MEE1OWX_SS1B60641Z1CH17K029S";
 
@@ -68,17 +117,59 @@
     memoryPercent = 50;
   };
 
-  networking.networkmanager.enable = true;
+  networking.networkmanager = {
+    enable = true;
+    ensureProfiles = {
+      #environmentFiles = [config.clan.core.vars.generators.wifi-secrets.files.env.path];
+      profiles = {
+        "misselthwaite" = {
+          connection = {
+            id = "misslethwaite";
+            type = "wifi";
+            interface-name = "wlp1s0";
+          };
+          wifi = {
+            ssid = "Secret Garden";
+          };
+          ipv4 = {
+            method = "manual";
+            addresses = "10.42.1.70/23";
+            gateway = "10.42.1.1";
+            dns = "10.42.1.13;8.8.8.8;1.1.1.1;";
+          };
+          wifi-security = {
+            key-mgmt = "wpa-psk";
+            psk = "jerma985therat";
+          };
+        };
+        "wintermute" = {
+          connection = {
+            id = "wintermute";
+            type = "wifi";
+            interface-name = "wlp1s0";
+          };
+          wifi = {
+            ssid = "wintermute";
+          };
+          ipv4 = {
+            method = "auto";
+          };
+          wifi-security = {
+            key-mgmt = "wpa-psk";
+            psk = "hari666themule";
+          };
+        };
+      };
+    };
+  };
   networking.hostName = "evil-ball";
-  networking.useDHCP = false;
-  networking.interfaces.eno2.ipv4.addresses = [
-    {
-      address = "10.42.1.70";
-      prefixLength = 24;
-    }
-  ];
-  networking.defaultGateway = "10.42.1.1";
-  networking.nameservers = ["10.42.1.13" "8.8.8.8" "1.1.1.1"];
+
+  #programs.dconf.enable = true;
+
+  #systemd.services.NetworkManager-ensure-profiles = {
+  #  wants = ["sops-nix.service"];
+  #  after = ["sops-nix.service"];
+  #};
 
   hardware.enableRedistributableFirmware = true;
 
@@ -97,6 +188,8 @@
 
   environment.systemPackages = with pkgs; [
     swaylock
+    awww
+    waybar
     libnotify
   ];
 
@@ -106,14 +199,41 @@
       PasswordAuthentication = false;
       PermitRootLogin = "no";
     };
+    #    hostKeys = [
+    #      {
+    #        path = config.clan.core.vars.generators.ssh-host-key.files."ssh_host_ed25519_key".path;
+    #        type = "ed25519";
+    #      }
+    #    ];
   };
 
-  users.users.i-magi = {
-    isNormalUser = true;
-    description = "citizen.charming";
-    extraGroups = ["networkmanager" "wheel" "video" "audio" "docker"];
-    initialPassword = "opensesame";
-    shell = pkgs.fish;
+  users = {
+    mutableUsers = false;
+
+    users = {
+      root.hashedPassword = "!";
+      "xvii-star" = {
+        isNormalUser = true;
+        description = "XVII. The Star";
+        extraGroups = ["wheel" "networkmanager" "video" "audio" "docker"];
+        initialPassword = "opensesame";
+        #hashedPasswordFile = config.clan.core.vars.generators.xvii-star-password.files.hash.path;
+        shell = pkgs.fish;
+      };
+      "i-magi" = {
+        isNormalUser = true;
+        description = "I. The Magician";
+        extraGroups = ["networkmanager" "video" "audio" "docker"];
+        initialPassword = "opensesame";
+        #hashedPasswordFile = config.clan.core.vars.generators.i-magi-password.files.hash.path;
+        shell = pkgs.fish;
+      };
+    };
+  };
+
+  security.sudo = {
+    enable = true;
+    execWheelOnly = true;
   };
 
   nix = {
@@ -134,7 +254,7 @@
       imports = [
         (self + "/infra/commons/colors.nix")
         (self + "/infra/environment/sway.nix")
-        #(self + "/infra/environment/gtk.nix")
+        (self + "/infra/environment/gtk.nix")
         (self + "/infra/commons/fonts.nix")
         (self + "/infra/commons/fish.nix")
         (self + "/infra/commons/ghostty.nix")
@@ -325,7 +445,7 @@
               key = "      GEN";
               keyColor = "red";
               outputColor = "yellow";
-              text = "basename$ (readlink /nix/var/nix/profiles/system) | cut -d'-' -f2";
+              text = "basename $(readlink /nix/var/nix/profiles/system) | cut -d'-' -f2";
             }
             {
               type = "command";
@@ -373,7 +493,7 @@
               key = "      VPN";
               keyColor = "cyan";
               outputColor = "yellow";
-              text = ''ip=$(ip -4 addr show dev proton 2>/dev/null | awk '/inet/ {print $2}' | head -n1); if [ -z "$ip" ]; then && echo "Unlinked"; else echo "$ip [$(curl -sm 2 ipinfo.io/country 2>/dev/null || echo "UNK")]"; fi'';
+              text = ''ip=$(ip -4 addr show dev proton 2>/dev/null | awk '/inet/ {print $2}' | head -n1); if [ -z "$ip" ]; then echo "Unlinked"; else echo "$ip [$(curl -sm 2 ipinfo.io/country 2>/dev/null || echo "UNK")]"; fi'';
             }
             {
               type = "shell";

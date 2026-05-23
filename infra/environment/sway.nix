@@ -14,10 +14,10 @@
 #
 {
   pkgs,
-  config,
+  #config,
   ...
 }: let
-  c = config.colorScheme.palette;
+  # c = config.colorScheme.palette;
   mod = "Mod4";
 in {
   wayland.windowManager.sway = {
@@ -26,7 +26,7 @@ in {
 
     config = {
       terminal = "ghostty";
-      menu = "fuzzel";
+      menu = "wofi";
 
       window = {
         border = 2;
@@ -38,22 +38,22 @@ in {
         outer = 4;
       };
 
-      colors = {
-        focused = {
-          border = "#${c.base05}";
-          background = "#${c.base01}";
-          text = "#${c.base05}";
-          indicator = "#${c.base05}";
-          childBorder = "#${c.base05}";
-        };
-        unfocused = {
-          border = "#${c.base02}";
-          background = "#${c.base02}";
-          text = "#${c.base05}";
-          indicator = "#${c.base02}";
-          childBorder = "#${c.base02}";
-        };
-      };
+      #colors = {
+      #  focused = {
+      #    border = "#${c.base05}";
+      #    background = "#${c.base01}";
+      #    text = "#${c.base05}";
+      #    indicator = "#${c.base05}";
+      #    childBorder = "#${c.base05}";
+      #  };
+      #  unfocused = {
+      #    border = "#${c.base02}";
+      #    background = "#${c.base02}";
+      #    text = "#${c.base05}";
+      #    indicator = "#${c.base02}";
+      #    childBorder = "#${c.base02}";
+      #  };
+      #};
 
       keybindings = {
         "${mod}+Return" = "exec ghostty";
@@ -88,21 +88,20 @@ in {
     };
   };
 
-  programs.fuzzel = {
+  programs.wofi = {
     enable = true;
-    settings = {
-      colors = {
-        background = "${c.extbg2}ff";
-        text = "${c.base05}ff";
-        match = "${c.base0B}ff";
-        selection = "${c.base02}ff";
-      };
-    };
+    #settings = {
+    #  colors = {
+    #    background = "${c.extbg2}ff";
+    #    text = "${c.base05}ff";
+    #    match = "${c.base0B}ff";
+    #    selection = "${c.base02}ff";
+    #  };
+    #};
   };
 
   home.packages = with pkgs; [
     wl-clipboard
     cliphist
-    awww
   ];
 }

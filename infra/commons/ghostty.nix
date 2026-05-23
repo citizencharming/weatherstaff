@@ -12,9 +12,14 @@
 #
 # ==//./infra/commons/ghostty.nix \\==
 #
-{config, ...}: let
-  c = config.colorScheme.palette;
-in {
+{
+  #config,
+  ...
+}:
+#let
+#  c = config.colorScheme.palette;
+#in
+{
   programs.ghostty = {
     enable = true;
     enableFishIntegration = true;
@@ -29,35 +34,35 @@ in {
       window-padding-x = 12;
       window-padding-y = 12;
       window-theme = "ghostty";
-      custom-shader = "crt-phosphor-bloom.glsl";
+      #custom-shader = "crt-phosphor-bloom.glsl";
       unfocused-split-opacity = 0.7;
-      unfocused-split-fill = "#${c.base01}";
+      #unfocused-split-fill = "#${c.base01}";
 
-      background = "${c.base00}";
-      foreground = "${c.base05}";
-      cursor-color = "${c.base05}";
-      selection-background = "${c.base02}";
-      selection-foreground = "${c.base05}";
+      #background = "${c.base00}";
+      #foreground = "${c.base05}";
+      #cursor-color = "${c.base05}";
+      #selection-background = "${c.base02}";
+      #selection-foreground = "${c.base05}";
 
-      palette = [
-        "0=#${c.base00}" # Black
-        "1=#${c.base08}" # Red
-        "2=#${c.base0B}" # Green
-        "3=#${c.base0A}" # Yellow
-        "4=#${c.base0D}" # Blue
-        "5=#${c.base0E}" # Magenta
-        "6=#${c.base0C}" # Cyan
-        "7=#${c.base05}" # White
+      #palette = [
+      #  "0=#${c.base00}" # Black
+      #  "1=#${c.base08}" # Red
+      #  "2=#${c.base0B}" # Green
+      #  "3=#${c.base0A}" # Yellow
+      #  "4=#${c.base0D}" # Blue
+      #  "5=#${c.base0E}" # Magenta
+      #  "6=#${c.base0C}" # Cyan
+      #  "7=#${c.base05}" # White
 
-        "8=#${c.base03}"
-        "9=#${c.base09}"
-        "10=#${c.base01}"
-        "11=#${c.base02}"
-        "12=#${c.base04}"
-        "13=#${c.base06}"
-        "14=#${c.base0F}"
-        "15=#${c.base07}"
-      ];
+      #  "8=#${c.base03}"
+      #  "9=#${c.base09}"
+      #  "10=#${c.base01}"
+      #  "11=#${c.base02}"
+      #  "12=#${c.base04}"
+      #  "13=#${c.base06}"
+      #  "14=#${c.base0F}"
+      #  "15=#${c.base07}"
+      #];
 
       keybind = [
         "ctrl+shift+x=close_surface"
@@ -82,9 +87,9 @@ in {
         float g = texture(iChannel0, crt_uv).g;
         float b = texture(iChannel0, crt_uv - vec2(0.001, 0.0)).b;
 
-    #    // SCANLINE
-    #    float scanline = sin(uv.y * 800.0) * 0.04;
-    #    fragColor = vec4(r - scanline, g - scanline, b - scanline, 1.0);
-    #  }
+    //    // SCANLINE
+    //    float scanline = sin(uv.y * 800.0) * 0.04;
+    //    fragColor = vec4(r - scanline, g - scanline, b - scanline, 1.0);
+    //  }
   '';
 }

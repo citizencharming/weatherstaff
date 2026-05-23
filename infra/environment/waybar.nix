@@ -13,12 +13,14 @@
 # ==//./infra/environment/waybar.nix \\==
 #
 {
-  config,
+  #config,
   pkgs,
   ...
-}: let
-  c = config.colorScheme.palette;
-in {
+}:
+#let
+#c = config.colorScheme.palette;
+#in
+{
   programs.waybar = {
     enable = true;
     extraPackages = with pkgs; [font-awesome];
@@ -30,7 +32,7 @@ in {
 
         modules-left = ["sway/workspaces" "sway/window"];
         modules-center = ["clock"];
-        modules-right = ["custom/nixos-updates" "custom/nixos-generation" "pulseaudio" "network" "battery" "tray"];
+        modules-right = ["custom/nixos-updates" "custom/nixos-generation" "pipewire" "network" "battery" "tray"];
 
         "river/workspaces" = {
           disable-scroll = true;
@@ -47,7 +49,7 @@ in {
           format = "[ {:%H:%M :: &b &d} ]";
         };
 
-        "pulseaudio" = {
+        "pipewire" = {
           format = "VOL {volume}%";
           format-muted = "VOL MUTE";
         };
@@ -85,53 +87,36 @@ in {
       }
 
       window#waybar {
-        background-color: #${c.base00};
-        color: #${c.base06};
-        border-bottom: 2px solid #${c.base02};
       }
 
       #tags button {
         padding: 0 8px;
-        color: #${c.base05};
         background: transparent;
-        border-right: 1px solid #${c.base01};
       }
 
       #tags button.focused {
-        background-color: #${c.base0E};
-        color: #${c.base00};
         font-weight: bold;
       }
 
       #tags button.urgent {
-        background-color: #${c.base08};
-        color: #${c.base00};
       }
 
       #window {
         padding: 0 12px;
-        color: #${c.base06};
       }
 
       #custom-nixos-updates,
       #custom-nixos-generation,
-      #pulseaudio,
+      #pipewire,
       #battery,
       #network,
       #tray {
         padding: 0 12px;
-        border-left: 1px solid #${c.base02};
-        background-color: #${c.base01};
       }
 
       #clock {
         padding: 0 14px;
-        color: #${c.base0A};
-        background-color: #${c.base00};
       }
-
-      #custom-nixos-updates { color: #${c.base05}; }
-      #custom-nixos-generation { color: #${c.base0D}; }
     '';
   };
 }

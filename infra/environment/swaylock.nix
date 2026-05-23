@@ -13,12 +13,14 @@
 # ==//./infra/environment/river.nix \\==
 #
 {
-  config,
+  #config,
   pkgs,
   ...
-}: let
-  c = config.colorScheme.palette;
-in {
+}:
+#let
+#c = config.colorScheme.palette;
+#in
+{
   programs.swaylock = {
     enable = true;
     package = pkgs.swaylock-effects;
@@ -30,15 +32,15 @@ in {
       indicator = true;
       indicator-radius = 120;
       indicator-thickness = 15;
-      ring-color = "${c.base00}dd"; # Abyssal Indigo
-      inside-color = "${c.base01}99"; # Plasma Shadow
-      text-color = "${c.base05}"; # Amber Phosphor
-      line-color = "00000000";
-      separator-color = "00000000";
-      key-hk-color = "${c.base0C}"; # Cyan stroke when typing
-      ring-clear-color = "${c.base0E}"; # Magenta on backspace
-      ring-ver-color = "${c.base0B}"; # Green on verification
-      ring-wrong-color = "${c.base08}"; # Red on failed authentication
+      #ring-color = "${c.base00}dd"; # Abyssal Indigo
+      #inside-color = "${c.base01}99"; # Plasma Shadow
+      #text-color = "${c.base05}"; # Amber Phosphor
+      #line-color = "00000000";
+      #separator-color = "00000000";
+      #key-hk-color = "${c.base0C}"; # Cyan stroke when typing
+      #ring-clear-color = "${c.base0E}"; # Magenta on backspace
+      #ring-ver-color = "${c.base0B}"; # Green on verification
+      #ring-wrong-color = "${c.base08}"; # Red on failed authentication
     };
   };
 }

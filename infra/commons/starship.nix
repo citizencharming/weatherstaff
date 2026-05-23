@@ -13,7 +13,7 @@
 # ==//./infra/commons/starship.nix \\==
 #
 {
-  config,
+  #config,
   lib,
   ...
 }: {
@@ -21,19 +21,19 @@
     enable = true;
     enableFishIntegration = true;
     settings = {
-      palettes.black_rainbow = {
-        amber = "#${config.colorScheme.palette.base05}";
-        indigo = "#${config.colorScheme.palette.base00}";
-        purple = "#${config.colorScheme.palette.base04}";
-        crimson = "#${config.colorScheme.palette.base0F}";
-        red = "#${config.colorScheme.palette.base08}";
-        blue = "#${config.colorScheme.palette.base0D}";
-        green = "#${config.colorScheme.palette.base0B}";
-        cyan = "#${config.colorScheme.palette.base0C}";
-        magenta = "#${config.colorScheme.palette.base0E}";
-        yellow = "#${config.colorScheme.palette.base0A}";
-        orange = "#${config.colorScheme.palette.base09}";
-      };
+      #palettes.black_rainbow = {
+      #  amber = "#${config.colorScheme.palette.base05}";
+      #  indigo = "#${config.colorScheme.palette.base00}";
+      #  purple = "#${config.colorScheme.palette.base04}";
+      #  crimson = "#${config.colorScheme.palette.base0F}";
+      #  red = "#${config.colorScheme.palette.base08}";
+      #  blue = "#${config.colorScheme.palette.base0D}";
+      #  green = "#${config.colorScheme.palette.base0B}";
+      #  cyan = "#${config.colorScheme.palette.base0C}";
+      #  magenta = "#${config.colorScheme.palette.base0E}";
+      #  yellow = "#${config.colorScheme.palette.base0A}";
+      #  orange = "#${config.colorScheme.palette.base09}";
+      #};
       format = lib.concatStrings [
         "[█](fg:red)"
         "$os$username"

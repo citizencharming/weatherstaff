@@ -13,21 +13,23 @@
 # ==//./infra/commons/cli.nix \\==
 #
 {
-  config,
+  #config,
   pkgs,
   ...
-}: let
-  c = config.colorScheme.palette;
-in {
+}:
+#let
+#c = config.colorScheme.palette;
+#in
+{
   programs.fzf = {
     enable = true;
     enableFishIntegration = true;
     enableBashIntegration = true;
-    defaultOptions = [
-      "--color=bg+:#${c.base01},bg:#${c.base00},spinner:#${c.base0C},hl:#${c.base0D}"
-      "--color=fg:#${c.base05},header:#${c.base0D},info:#${c.base0A},pointer:#${c.base0C}"
-      "--color=marker:#${c.base0C},fg+:#${c.base05},prompt:#${c.base0A},hl+:#${c.base0A}"
-    ];
+    #defaultOptions = [
+    #  "--color=bg+:#${c.base01},bg:#${c.base00},spinner:#${c.base0C},hl:#${c.base0D}"
+    #  "--color=fg:#${c.base05},header:#${c.base0D},info:#${c.base0A},pointer:#${c.base0C}"
+    #  "--color=marker:#${c.base0C},fg+:#${c.base05},prompt:#${c.base0A},hl+:#${c.base0A}"
+    #];
   };
 
   programs.zoxide = {
@@ -38,7 +40,7 @@ in {
   programs.bat = {
     enable = true;
     config = {
-      theme = "base16";
+      #theme = "base16";
       style = "numbers,changes,header";
     };
   };
@@ -74,10 +76,10 @@ in {
     };
     theme = {
       manager = {
-        cmd = {fg = "#${c.base0C}";}; # Cyan
+        #cmd = {fg = "#${c.base0C}";}; # Cyan
         hovered = {
-          fg = "#${c.base00}"; # Indigo
-          bg = "#${c.base0E}"; # Magenta
+          #fg = "#${c.base00}"; # Indigo
+          #bg = "#${c.base0E}"; # Magenta
           bold = true;
         };
         file_transparent = false;
@@ -87,18 +89,18 @@ in {
         separator_open = "";
         separator_close = "";
         mode_normal = {
-          fg = "#${c.base00}";
-          bg = "#${c.base0B}"; # Green
+          #fg = "#${c.base00}";
+          #bg = "#${c.base0B}"; # Green
           bold = true;
         };
         mode_select = {
-          fg = "#${c.base00}";
-          bg = "#${c.base09}"; # Blue
+          #fg = "#${c.base00}";
+          #bg = "#${c.base09}"; # Blue
           bold = true;
         };
         mode_unset = {
-          fg = "#${c.base00}";
-          bg = "#${c.base08}"; # Red
+          #fg = "#${c.base00}";
+          #bg = "#${c.base08}"; # Red
           bold = true;
         };
       };

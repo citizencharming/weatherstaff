@@ -15,6 +15,31 @@
     clan-core = {
       url = "https://git.clan.lol/clan/clan-core/archive/main.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.disko.follows = "disko";
+      inputs.sops-nix.follows = "sops-nix";
+    };
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    #impermanence.url = "github:nixos-community/impermanence";
+    nixos-anywhere = {
+      url = "github:nix-community/nixos-anywhere";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    import-tree.url = "github:vic/import-tree";
+    mcp-servers-nix = {
+      url = "github:natsukium/mcp-servers-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    #llm-agents = {
+    #  url = "github:numtide/llm-agents.nix";
+    #  inputs.nixpkgs.follows = "nixpkgs";
+    #};
+    wrappers = {
+      url = "github:lassulus/wrappers";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    naersk = {
+      url = "github:nix-community/naersk/master";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
